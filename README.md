@@ -1,6 +1,6 @@
 # pipen-filters
 
-Add a set of useful filters for  for [pipen][1] templates.
+Add a set of useful filters for [pipen][1] templates.
 
 These filters can be used for both liquid and jinja2 templating in pipen.
 
