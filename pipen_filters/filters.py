@@ -2,7 +2,7 @@
 import json
 from glob import glob as pyglob
 from os import PathLike, path, readlink
-from typing import Any, List, Union
+from typing import Any, List, Union, Dict, Callable
 
 
 def commonprefix(*paths: PathLike, basename_only: bool = True) -> str:
@@ -44,7 +44,7 @@ def readlines(
     file: PathLike,
     *args: Any,
     **kwargs: Any,
-) -> List[Union[str, bytes]]:
+) -> Union[List[str], List[bytes]]:
     """Read the lines from a file
 
     Args:
@@ -57,7 +57,7 @@ def readlines(
     """
     return read(file, *args, **kwargs).splitlines()
 
-FILTERS = {}
+FILTERS: Dict[str, Callable] = {}
 FILTERS["realpath"] = path.realpath
 FILTERS["readlink"] = readlink
 # /a/b/c.txt => /a/b/
