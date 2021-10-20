@@ -89,5 +89,5 @@ FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["read"] = read
 FILTERS["readlines"] = readlines
-FILTERS["glob"] = lambda *paths: pyglob(path.join(*paths))
-FILTERS["glob0"] = lambda *paths: list(FILTERS["glob"](*paths))[0]
+FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))
+FILTERS["glob0"] = lambda *paths: FILTERS["glob"](*paths)[0]
