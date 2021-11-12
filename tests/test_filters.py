@@ -65,6 +65,8 @@ def test_joinpaths():
 
 def test_json():
     assert json({"a": 1}) == '{"a": 1}'
+    assert json_dumps({"a": 1}) == '{"a": 1}'
+    assert json_loads('{"a": 1}') == {"a": 1}
 
 def test_read(tmp_path):
     file = tmp_path / "a"

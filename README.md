@@ -60,7 +60,11 @@ class MyProc(Proc):
 
     - `quote`: put double quotes around data (`1 -> "1"`)
     - `squote`: put single quotes around data (`1 -> '1'`)
+
+- Data conversion
     - `json`: `json.dumps`
+    - `json_dumps`: Alias of `json`
+    - `json_loads`: `json.loads`
 
 - Globs
 
