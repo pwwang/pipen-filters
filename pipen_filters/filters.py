@@ -1,6 +1,8 @@
 """Provides the filters"""
 import json
-import toml  # type: ignore
+# drop toml due to issue
+# https://github.com/uiri/toml/issues/387
+import tomlkit
 from glob import glob as pyglob
 from os import PathLike, path, readlink
 from typing import Any, List, Union, Dict, Callable
@@ -90,9 +92,9 @@ FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps
 FILTERS["json_loads"] = json.loads
-FILTERS["toml"] = toml.dumps
-FILTERS["toml_dumps"] = toml.dumps
-FILTERS["toml_loads"] = toml.loads
+FILTERS["toml"] = tomlkit.dumps
+FILTERS["toml_dumps"] = tomlkit.dumps
+FILTERS["toml_loads"] = tomlkit.parse
 FILTERS["read"] = read
 FILTERS["readlines"] = readlines
 FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))
