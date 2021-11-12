@@ -19,5 +19,8 @@ class PipenFilters:
 
         if "filters" not in config.template_opts:
             config.template_opts.filters = {}
+        if "globals" not in config.template_opts:
+            config.template_opts.globals = {}
 
         config.template_opts.filters.update(FILTERS)
+        config.template_opts.globals.update(FILTERS)
