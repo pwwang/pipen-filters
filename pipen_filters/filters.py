@@ -3,6 +3,7 @@ import json
 # drop toml due to issue
 # https://github.com/uiri/toml/issues/387
 import tomlkit
+from slugify import slugify  # type: ignore
 from glob import glob as pyglob
 from os import PathLike, path, readlink
 from typing import Any, List, Union, Dict, Callable
@@ -88,6 +89,7 @@ FILTERS["prefix0"] = lambda pth: path.join(
 )
 FILTERS["quote"] = lambda var: json.dumps(str(var))
 FILTERS["squote"] = lambda var: repr(str(var))
+FILTERS["slugify"] = slugify
 FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps

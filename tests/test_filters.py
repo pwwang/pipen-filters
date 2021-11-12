@@ -13,6 +13,9 @@ def test_realpath(tmp_path):
     assert realpath(target) == str(source)
 
 
+def test_slugify():
+    assert slugify("a b") == "a-b"
+
 def test_readlink(tmp_path):
     target = tmp_path / "a"
     source = tmp_path / "b"
