@@ -2,7 +2,8 @@
 import json
 # drop toml due to issue
 # https://github.com/uiri/toml/issues/387
-import tomlkit
+import tomli
+import tomli_w
 from slugify import slugify  # type: ignore
 from glob import glob as pyglob
 from os import PathLike, path, readlink
@@ -94,9 +95,9 @@ FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps
 FILTERS["json_loads"] = json.loads
-FILTERS["toml"] = tomlkit.dumps
-FILTERS["toml_dumps"] = tomlkit.dumps
-FILTERS["toml_loads"] = tomlkit.parse
+FILTERS["toml"] = tomli_w.dumps
+FILTERS["toml_dumps"] = tomli_w.dumps
+FILTERS["toml_loads"] = tomli.loads
 FILTERS["read"] = read
 FILTERS["readlines"] = readlines
 FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))

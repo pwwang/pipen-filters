@@ -12,6 +12,8 @@ repository = "https://github.com/pwwang/pipen-filters"
 python = "^3.7.1"
 pipen = "^0.2"
 python-slugify = "^5.0.2"
+tomli = "^1.2.2"
+tomli-w = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
