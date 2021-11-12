@@ -5,7 +5,7 @@ from pipen import plugin
 
 from .filters import FILTERS
 
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 
 
 class PipenFilters:
