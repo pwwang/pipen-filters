@@ -65,6 +65,9 @@ class MyProc(Proc):
     - `json`: `json.dumps`
     - `json_dumps`: Alias of `json`
     - `json_loads`: `json.loads`
+    - `toml`: `toml.dumps`
+    - `toml_dumps`: Alias of `toml`
+    - `toml_loads`: `toml.loads`
 
 - Globs
 

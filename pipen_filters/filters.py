@@ -1,5 +1,6 @@
 """Provides the filters"""
 import json
+import toml  # type: ignore
 from glob import glob as pyglob
 from os import PathLike, path, readlink
 from typing import Any, List, Union, Dict, Callable
@@ -89,6 +90,9 @@ FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps
 FILTERS["json_loads"] = json.loads
+FILTERS["toml"] = toml.dumps
+FILTERS["toml_dumps"] = toml.dumps
+FILTERS["toml_loads"] = toml.loads
 FILTERS["read"] = read
 FILTERS["readlines"] = readlines
 FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))
