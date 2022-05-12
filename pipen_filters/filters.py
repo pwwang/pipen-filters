@@ -1,13 +1,14 @@
 """Provides the filters"""
 import json
-# drop toml due to issue
-# https://github.com/uiri/toml/issues/387
-import tomli
-import tomli_w
-from slugify import slugify  # type: ignore
 from glob import glob as pyglob
 from os import PathLike, path, readlink
 from typing import Any, List, Union, Dict, Callable
+
+import rtoml
+from diot import Diot
+from simpleconf import Config
+from simpleconf.caster import cast, null_caster
+from slugify import slugify  # type: ignore
 
 
 def commonprefix(*paths: PathLike, basename_only: bool = True) -> str:
@@ -95,9 +96,14 @@ FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps
 FILTERS["json_loads"] = json.loads
-FILTERS["toml"] = tomli_w.dumps
-FILTERS["toml_dumps"] = tomli_w.dumps
-FILTERS["toml_loads"] = tomli.loads
+FILTERS["toml"] = rtoml.dumps
+FILTERS["toml_dumps"] = rtoml.dumps
+# Able to load "null" as None
+FILTERS["toml_load"] = lambda file: Config.load(file)
+FILTERS["toml_loads"] = lambda tomlstr: cast(
+    Diot(rtoml.loads(tomlstr)),
+    [null_caster],
+)
 FILTERS["read"] = read
 FILTERS["readlines"] = readlines
 FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))

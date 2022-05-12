@@ -74,7 +74,9 @@ def test_json():
 def test_toml():
     assert toml({"a": 1}) == 'a = 1\n'
     assert toml_dumps({"a": 1}) == 'a = 1\n'
+    assert toml_dumps({"a": None}) == 'a = "null"\n'
     assert toml_loads('a = 1') == {"a": 1}
+    assert toml_loads('a = "null"') == {"a": None}
 
 def test_read(tmp_path):
     file = tmp_path / "a"
