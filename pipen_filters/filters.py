@@ -38,8 +38,9 @@ def config(x: Any, loader: str = None) -> Mapping[str, Any]:
     """Get the configuration (python dictionary) from a file
 
     Args:
-        x: The path to the file
+        x: The path to the file, dict or string of configurations (json or toml)
         loader: The loader to use, defaults to auto-detect
+            If x is a dict, this argument is ignored
             if x is a string and is not a file path, then x will be loaded as
             a toml string if loader is not specified
             if x is a file path, then x will be loaded according to the file
@@ -48,6 +49,9 @@ def config(x: Any, loader: str = None) -> Mapping[str, Any]:
     Returns:
         The config
     """
+    if not isinstance(x, (Path, str)):  # assume dict
+        return Config.load_one(x, loader="dict")
+
     if isinstance(x, str) and not Path(x).is_file():
         if loader == "toml":
             return Diot(FILTERS["toml_loads"](x))
