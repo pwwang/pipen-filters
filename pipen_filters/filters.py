@@ -2,6 +2,7 @@
 import json
 from glob import glob as pyglob
 from os import PathLike, path, readlink
+from pathlib import Path
 from typing import Any, List, Union, Dict, Callable
 
 import rtoml
@@ -108,3 +109,4 @@ FILTERS["read"] = read
 FILTERS["readlines"] = readlines
 FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))
 FILTERS["glob0"] = lambda *paths: FILTERS["glob"](*paths)[0]
+FILTERS["as_path"] = Path
