@@ -1,13 +1,15 @@
 """Provides the filters"""
 import json
+import tempfile
 from glob import glob as pyglob
 from os import PathLike, path, readlink
 from pathlib import Path
-from typing import Any, List, Union, Dict, Callable
+from typing import Any, List, Mapping, Union, Dict, Callable
 
 import rtoml
 from diot import Diot
 from simpleconf import Config
+from simpleconf.exceptions import FormatNotSupported
 from simpleconf.caster import cast, null_caster
 from slugify import slugify  # type: ignore
 
@@ -30,6 +32,30 @@ def commonprefix(*paths: PathLike, basename_only: bool = True) -> str:
     """
     paths = [path.basename(pth) if basename_only else pth for pth in paths]
     return path.commonprefix(paths)
+
+
+def config(x: Any, loader: str = None) -> Mapping[str, Any]:
+    """Get the configuration (python dictionary) from a file
+
+    Args:
+        x: The path to the file
+        loader: The loader to use, defaults to auto-detect
+            if x is a string and is not a file path, then x will be loaded as
+            a toml string if loader is not specified
+            if x is a file path, then x will be loaded according to the file
+            extension
+
+    Returns:
+        The config
+    """
+    if isinstance(x, str) and not Path(x).is_file():
+        if loader == "toml":
+            return Diot(FILTERS["toml_loads"](x))
+        if loader == "json":
+            return Diot(FILTERS["json_loads"](x))
+        raise ValueError(f"Unknown loader: {loader}")
+
+    return Config.load_one(x, loader=loader)
 
 
 def read(file: PathLike, *args: Any, **kwargs: Any) -> Union[str, bytes]:
@@ -64,6 +90,7 @@ def readlines(
     """
     return read(file, *args, **kwargs).splitlines()
 
+
 FILTERS: Dict[str, Callable] = {}
 FILTERS["realpath"] = path.realpath
 FILTERS["readlink"] = readlink
@@ -96,11 +123,12 @@ FILTERS["slugify"] = slugify
 FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps
+FILTERS["json_load"] = lambda x: config(x, "json")
 FILTERS["json_loads"] = json.loads
 FILTERS["toml"] = rtoml.dumps
 FILTERS["toml_dumps"] = rtoml.dumps
 # Able to load "null" as None
-FILTERS["toml_load"] = lambda file: Config.load(file)
+FILTERS["toml_load"] = lambda x: config(x, "toml")
 FILTERS["toml_loads"] = lambda tomlstr: cast(
     Diot(rtoml.loads(tomlstr)),
     [null_caster],
@@ -110,3 +138,4 @@ FILTERS["readlines"] = readlines
 FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))
 FILTERS["glob0"] = lambda *paths: FILTERS["glob"](*paths)[0]
 FILTERS["as_path"] = Path
+FILTERS["config"] = config

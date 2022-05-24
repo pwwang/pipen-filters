@@ -62,13 +62,16 @@ class MyProc(Proc):
     - `quote`: put double quotes around data (`1 -> "1"`)
     - `squote`: put single quotes around data (`1 -> '1'`)
 
-- Data conversion
+- Configurations
     - `json`: `json.dumps`
+    - `json_dump`: Load json froma  file
     - `json_dumps`: Alias of `json`
     - `json_loads`: `json.loads`
     - `toml`: `toml.dumps`
+    - `toml_dump`: Load toml from a file
     - `toml_dumps`: Alias of `toml`
     - `toml_loads`: `toml.loads`
+    - `config`: Load configuration from an object, a string or a file
 
 - Globs
 

@@ -121,3 +121,26 @@ def test_glob0(tmp_path):
 
 def test_as_path(tmp_path):
     assert as_path(str(tmp_path)) == tmp_path
+
+
+def test_config(tmp_path):
+    conf = tmp_path / "config.toml"
+    conf.write_text("a = 1")
+    out = config(conf)
+    assert out == {"a": 1}
+
+    conf = tmp_path / "config"
+    conf.write_text("a = 1")
+    out = config(conf, loader="toml")
+    assert out == {"a": 1}
+
+    out = config("a = 1", loader="toml")
+    assert out == {"a": 1}
+
+    out = config('{"a": 1}', loader="json")
+    assert out == {"a": 1}
+
+    with pytest.raises(ValueError):
+        config("a = 1")
+
+    assert config({"a": 1}) == {"a": 1}

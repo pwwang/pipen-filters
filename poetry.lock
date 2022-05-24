@@ -454,7 +454,7 @@ six = ">=1.5"
 
 [[package]]
 name = "python-simpleconf"
-version = "0.5.5"
+version = "0.5.6"
 description = "Simple configuration management with python."
 category = "main"
 optional = false
@@ -495,7 +495,7 @@ python-versions = "*"
 
 [[package]]
 name = "rich"
-version = "12.4.3"
+version = "12.4.4"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "main"
 optional = false
@@ -964,8 +964,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 python-simpleconf = [
-    {file = "python-simpleconf-0.5.5.tar.gz", hash = "sha256:ab0e9f4c69e308c1975ab16c97f3e817297b3f83939900d7439a0d721b0bd56c"},
-    {file = "python_simpleconf-0.5.5-py3-none-any.whl", hash = "sha256:84598f8888462373e20cdcb23702334d683e77f778fa913ceeede6af22a391b1"},
+    {file = "python-simpleconf-0.5.6.tar.gz", hash = "sha256:1700249e966532f11747a346c238672c01d87c8c437fa16525a124362093da50"},
+    {file = "python_simpleconf-0.5.6-py3-none-any.whl", hash = "sha256:7dd44d69bba456fc65d2046c9585a1dc8ac653c256078b65fd1a6b50fe5bec92"},
 ]
 python-slugify = [
     {file = "python-slugify-6.1.2.tar.gz", hash = "sha256:272d106cb31ab99b3496ba085e3fea0e9e76dcde967b5e9992500d1f785ce4e1"},
@@ -976,8 +976,8 @@ pytz = [
     {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},
 ]
 rich = [
-    {file = "rich-12.4.3-py3-none-any.whl", hash = "sha256:26ef784599a9ab905ade34ff28904e4fbe9bce16e02c33c78b0229551104c146"},
-    {file = "rich-12.4.3.tar.gz", hash = "sha256:e7550ca19aec51b216ae4c34bfce82e94a0c79bdbf95cafbf42f343d0fb3f45a"},
+    {file = "rich-12.4.4-py3-none-any.whl", hash = "sha256:d2bbd99c320a2532ac71ff6a3164867884357da3e3301f0240090c5d2fdac7ec"},
+    {file = "rich-12.4.4.tar.gz", hash = "sha256:4c586de507202505346f3e32d1363eb9ed6932f0c2f63184dea88983ff4971e2"},
 ]
 rtoml = [
     {file = "rtoml-0.8.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e924ae37aeafd60d09b888ea30ae18bceac5086689216ab3ae16dd93692202a9"},
