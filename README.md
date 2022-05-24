@@ -55,6 +55,7 @@ class MyProc(Proc):
     - `filename`, `fn`, `stem`: get the stem of a path (`/a/b.c.txt -> b.c`)
     - `filename0`, `fn0`, `stem0`: get the stem of a path without dot (`/a/b.c.txt -> b`)
     - `joinpaths`: join path parts (`os.path.join`)
+    - `as_path`: convert a string into a `pathlib.Path` object
 
 - Quote data
 
