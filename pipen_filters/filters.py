@@ -1,6 +1,5 @@
 """Provides the filters"""
 import json
-import tempfile
 from glob import glob as pyglob
 from os import PathLike, path, readlink
 from pathlib import Path
@@ -9,7 +8,6 @@ from typing import Any, List, Mapping, Union, Dict, Callable
 import rtoml
 from diot import Diot
 from simpleconf import Config
-from simpleconf.exceptions import FormatNotSupported
 from simpleconf.caster import cast, null_caster
 from slugify import slugify  # type: ignore
 
