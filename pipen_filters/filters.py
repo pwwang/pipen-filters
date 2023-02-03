@@ -93,9 +93,55 @@ def readlines(
     return read(file, *args, **kwargs).splitlines()
 
 
+# Returns -1 instead of raising Error
+def _neg1_if_error(func: Callable) -> Callable:
+    def _func(*args: Any, **kwargs: Any) -> int:
+        try:
+            return func(*args, **kwargs)
+        except (FileNotFoundError, OSError):
+            return -1
+
+    return _func
+
+
+def isempty(
+    pth: PathLike,
+    ignore_ws: bool = True,
+    nonfile_as_empty: bool = False,
+) -> bool:
+    """Check if a file is empty
+
+    Args:
+        pth: The path to the file
+        ignore_ws: Ignore whitespaces?
+        nonfile_as_empty: Treat non-file as empty?
+
+    Returns:
+        True if the file is empty, False otherwise
+    """
+    if not path.isfile(pth):
+        return nonfile_as_empty
+
+    if not ignore_ws:
+        return path.getsize(pth) == 0
+
+    with open(pth) as fvar:
+        return fvar.read().strip() == ""
+
+
 FILTERS: Dict[str, Callable] = {}
 FILTERS["realpath"] = path.realpath
 FILTERS["readlink"] = readlink
+# path stat
+FILTERS["isfile"] = path.isfile
+FILTERS["isdir"] = path.isdir
+FILTERS["islink"] = path.islink
+FILTERS["exists"] = path.exists
+FILTERS["getsize"] = _neg1_if_error(path.getsize)
+FILTERS["getmtime"] = _neg1_if_error(path.getmtime)
+FILTERS["getctime"] = _neg1_if_error(path.getctime)
+FILTERS["getatime"] = _neg1_if_error(path.getatime)
+FILTERS["isempty"] = isempty
 # /a/b/c.txt => /a/b/
 FILTERS["dirname"] = path.dirname
 # /a/b/c.txt => c.txt
