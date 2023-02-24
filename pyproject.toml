@@ -10,11 +10,7 @@ repository = "https://github.com/pwwang/pipen-filters"
 
 [tool.poetry.dependencies]
 python = "^3.7.1"
-pipen = "^0.3"
-## required by pipen
-# python-slugify = "^6"
-# python-simpleconf = "^0.5"
-# rtoml = "^0.8"
+pipen = "^0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7"
