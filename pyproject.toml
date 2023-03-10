@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pipen-filters"
-version = "0.4.0"
+version = "0.5.0"
 description = "Add a set of useful filters for pipen templates"
 authors = ["pwwang <pwwang@pwwang.com>"]
 license = "MIT"
