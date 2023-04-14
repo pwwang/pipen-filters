@@ -9,7 +9,11 @@ import rtoml
 from diot import Diot
 from simpleconf import Config
 from simpleconf.caster import cast, null_caster
-from slugify import slugify  # type: ignore
+
+
+def _slugify(*args, **kwargs):
+    from slugify import slugify  # type: ignore
+    return slugify(*args, **kwargs)
 
 
 def commonprefix(*paths: PathLike, basename_only: bool = True) -> str:
@@ -167,7 +171,7 @@ FILTERS["prefix0"] = lambda pth: path.join(
 )
 FILTERS["quote"] = lambda var: json.dumps(str(var))
 FILTERS["squote"] = lambda var: repr(str(var))
-FILTERS["slugify"] = slugify
+FILTERS["slugify"] = _slugify
 FILTERS["joinpaths"] = path.join
 FILTERS["json"] = json.dumps
 FILTERS["json_dumps"] = json.dumps
