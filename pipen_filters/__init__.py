@@ -1,7 +1,9 @@
 """Add a set of useful filters for pipen templates"""
-
+import logging
 from typing import TYPE_CHECKING
+
 from pipen import plugin
+from pipen.utils import logger
 
 from .filters import FILTERS
 
@@ -34,3 +36,26 @@ class PipenFilters:
             **FILTERS,
             **config.template_opts.globals,
         }
+
+
+class TemplateOptsShortenFilter(logging.Filter):
+    """Shorten the template opts in the log"""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        if (
+            record.msg == "[bold][magenta]%-16s:[/magenta][/bold] %s"
+            and isinstance(record.args, tuple)
+            and len(record.args) == 2
+            and (
+                record.args[0] == "template_opts"
+                or (
+                    not record.args[0]
+                    and (record.args[1][:8] in ("filters=", "globals="))
+                )
+            )
+        ):
+            record.msg = "[bold][magenta]%-16s:[/magenta][/bold] %.54s..."
+        return True
+
+
+logger.logger.addFilter(TemplateOptsShortenFilter())
