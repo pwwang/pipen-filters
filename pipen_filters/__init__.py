@@ -50,7 +50,10 @@ class TemplateOptsShortenFilter(logging.Filter):
                 record.args[0] == "template_opts"
                 or (
                     not record.args[0]
-                    and (record.args[1][:8] in ("filters=", "globals="))
+                    and (
+                        isinstance(record.args[1], str)
+                        and record.args[1][:8] in ("filters=", "globals=")
+                    )
                 )
             )
         ):
