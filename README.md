@@ -95,4 +95,8 @@ class MyProc(Proc):
   - `read`: Read file content. You can also pass arguments to `open`
   - `readlines`: Read file content as a list of lines. Additional arguments will be passed to `open`
 
+- Other
+
+  - `regex_replace`: Replace a string using regex
+
 [1]: https://github.com/pwwang/pipen
