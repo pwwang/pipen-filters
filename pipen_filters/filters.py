@@ -133,6 +133,28 @@ def isempty(
         return fvar.read().strip() == ""
 
 
+def regex_replace(
+    string: str,
+    pattern: str,
+    repl: str,
+    count: int = 0,
+    flags: int = 0,
+) -> str:
+    """Replace the matched pattern with a string
+
+    Args:
+        string: The string to search
+        pattern: The pattern to search
+        repl: The string to replace
+        flags: The regex flags
+
+    Returns:
+        The replaced string
+    """
+    import re
+    return re.sub(pattern, repl, string, count=count, flags=flags)
+
+
 FILTERS: Dict[str, Callable] = {}
 FILTERS["realpath"] = path.realpath
 FILTERS["readlink"] = readlink
@@ -191,3 +213,5 @@ FILTERS["glob"] = lambda *paths: list(sorted(pyglob(path.join(*paths))))
 FILTERS["glob0"] = lambda *paths: FILTERS["glob"](*paths)[0]
 FILTERS["as_path"] = Path
 FILTERS["config"] = config
+# regex
+FILTERS["regex_replace"] = regex_replace
