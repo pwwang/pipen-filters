@@ -189,3 +189,10 @@ def test_isempty(tmp_path):
     fi.write_text("\n")
     assert f.isempty(fi) is True
     assert f.isempty(fi, ignore_ws=False) is False
+
+
+def test_regex_replace():
+    assert f.regex_replace("a", "a", "b") == "b"
+    assert f.regex_replace("a", "a", "b", count=1) == "b"
+    assert f.regex_replace("a", "a", "b", flags=0) == "b"
+    assert f.regex_replace("a1b2c3", r"(\d+)", "x\\1") == "ax1bx2cx3"
