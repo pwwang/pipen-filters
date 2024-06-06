@@ -44,26 +44,50 @@ def test_commonprefix():
 
 def test_ext():
     assert f.ext("/a/b.txt") == ".txt"
+    assert f.ext("/a/b.txt.gz", ignore=".gz") == ".txt"
+    assert f.ext("/a/b.txt.gz", ignore=[".gz"]) == ".txt"
+    assert f.ext("/a/b.txt.gz", ignore=[".gz", "txt"], recursive=True) == ""
+    assert f.ext("/a/b.x.txt.gz", ignore=[".gz", "txt"], recursive=True) == ".x"
 
 
 def test_ext0():
     assert f.ext0("/a/b.txt") == "txt"
+    assert f.ext0("/a/b.txt.gz", ignore=".gz") == "txt"
+    assert f.ext0("/a/b.txt.gz", ignore=[".gz"]) == "txt"
+    assert f.ext0("/a/b.txt.gz", ignore=[".gz", "txt"], recursive=True) == ""
+    assert f.ext0("/a/b.x.txt.gz", ignore=[".gz", "txt"], recursive=True) == "x"
 
 
 def test_prefix():
     assert f.prefix("/a/b.c.txt") == "/a/b.c"
+    assert f.prefix("/a/b.c.txt", ignore=".txt") == "/a/b"
+    assert f.prefix("/a/b.c.txt", ignore=[".txt"]) == "/a/b"
+    assert f.prefix("/a/c.d.e.txt", ignore=[".txt", "e"], recursive=True) == "/a/c"
+    assert f.prefix("/a/c.d.e.txt", ignore=[".txt", "e"], recursive=False) == "/a/c.d"
 
 
 def test_prefix0():
     assert f.prefix0("/a/b.c.txt") == "/a/b"
+    assert f.prefix0("/a/b.c.txt", ignore=".txt") == "/a/b"
+    assert f.prefix0("/a/b.c.txt", ignore=[".txt"]) == "/a/b"
+    assert f.prefix0("/a/b.c.txt", ignore=[".txt", "c"], recursive=True) == "/a/b"
+    assert f.prefix0("/a/b.c.d.e.txt", ignore=[".txt", "c"], recursive=True) == "/a/b"
 
 
 def test_filename():
     assert f.filename("/a/b.c.txt") == "b.c"
+    assert f.filename("/a/b.c.txt", ignore=".txt") == "b"
+    assert f.filename("/a/b.c.txt", ignore=[".txt"]) == "b"
+    assert f.filename("/a/b.c.d.txt", ignore=[".txt", "d"], recursive=True) == "b"
+    assert f.filename("/a/b.c.d.txt", ignore=[".txt", "d"], recursive=False) == "b.c"
 
 
 def test_filename0():
     assert f.filename0("/a/b.c.txt") == "b"
+    assert f.filename0("/a/b.c.txt", ignore=".txt") == "b"
+    assert f.filename0("/a/b.c.txt", ignore=[".txt"]) == "b"
+    assert f.filename0("/a/b.c.txt", ignore=[".txt", "c"], recursive=True) == "b"
+    assert f.filename0("/a/b.c.d.e.txt", ignore=[".txt", "c"], recursive=True) == "b"
 
 
 def test_quote():

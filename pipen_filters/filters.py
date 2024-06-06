@@ -1,4 +1,6 @@
 """Provides the filters"""
+from __future__ import annotations
+
 import json
 from glob import glob as pyglob
 from os import PathLike, path, readlink
@@ -155,6 +157,34 @@ def regex_replace(
     return re.sub(pattern, repl, string, count=count, flags=flags)
 
 
+def _splitexit(
+    pth: PathLike,
+    ignore: list[str] | str,
+    recursive: bool
+) -> tuple[str, str]:
+    """Split the extension with leading dot of a file
+
+    Args:
+        pth: The path to the file
+        ignore: The extensions to ignore
+            The extensions can be with or without leading dot
+        recursive: Recursively ignore the extensions from the end
+
+    Returns:
+        The path and the extension (with leading dot)
+    """
+    if isinstance(ignore, str):
+        ignore = [ignore]
+    ignore = ["." + ext.lstrip(".") for ext in ignore]
+    pth, last = path.splitext(pth)
+    if not recursive:
+        return (pth, last) if last not in ignore else path.splitext(pth)
+
+    while last in ignore:
+        pth, last = path.splitext(pth)
+    return pth, last
+
+
 FILTERS: Dict[str, Callable] = {}
 FILTERS["realpath"] = path.realpath
 FILTERS["readlink"] = readlink
@@ -174,22 +204,36 @@ FILTERS["dirname"] = path.dirname
 FILTERS["basename"] = path.basename
 FILTERS["commonprefix"] = commonprefix
 # /a/b/c.txt => .txt
-FILTERS["ext"] = lambda pth: path.splitext(pth)[-1]
+FILTERS["ext"] = (
+    lambda pth, ignore=[], recursive=False: _splitexit(pth, ignore, recursive)[1]
+)
 # /a/b/c.txt => txt
-FILTERS["ext0"] = lambda pth: FILTERS["ext"](pth).lstrip(".")
+FILTERS["ext0"] = (
+    lambda pth, ignore=[], recursive=False: _splitexit(pth, ignore, recursive)[1][1:]
+)
 # /a/b/c.d.e.txt => /a/b/c.d.e
-FILTERS["prefix"] = lambda pth: path.splitext(pth)[0]
+FILTERS["prefix"] = (
+    lambda pth, ignore=[], recursive=False: _splitexit(pth, ignore, recursive)[0]
+)
 # /a/b/c.d.e.txt => c.d.e
-FILTERS["filename"] = lambda pth: path.basename(FILTERS["prefix"](pth))
+FILTERS["filename"] = (
+    lambda pth, ignore=[], recursive=False: path.basename(
+        _splitexit(pth, ignore, recursive)[0]
+    )
+)
 FILTERS["fn"] = FILTERS["filename"]
 FILTERS["stem"] = FILTERS["filename"]
 # /a/b/c.d.e.txt => c
-FILTERS["filename0"] = lambda pth: FILTERS["filename"](pth).split(".")[0]
+FILTERS["filename0"] = (
+    lambda pth, ignore=[], recursive=False:
+    FILTERS["filename"](pth, ignore, recursive).split(".")[0]
+)
 FILTERS["fn0"] = FILTERS["filename0"]
 FILTERS["stem0"] = FILTERS["filename0"]
 # /a/b/c.d.e.txt => /a/b/c
-FILTERS["prefix0"] = lambda pth: path.join(
-    path.dirname(pth), FILTERS["fn0"](pth)
+FILTERS["prefix0"] = (
+    lambda pth, ignore=[], recursive=False:
+    path.join(path.dirname(pth), FILTERS["filename0"](pth, ignore, recursive))
 )
 FILTERS["quote"] = lambda var: json.dumps(str(var))
 FILTERS["squote"] = lambda var: repr(str(var))
