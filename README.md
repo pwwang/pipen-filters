@@ -1,8 +1,11 @@
-# pipen-filters
+<img src="docs/pipen-filters.png" align="center" width="200px"/>
+<hr />
 
 Add a set of useful filters for [pipen][1] templates.
 
 These filters can be used for both liquid and jinja2 templating in pipen.
+
+[API documentation](https://pwwang.github.io/pipen-filters/api/pipen_filters.filters/)
 
 ## Installation
 
@@ -32,6 +35,7 @@ class MyProc(Proc):
 
   - `realpath`: `os.path.realpath`
   - `readlink`: `os.readlink`
+  - `abspath`: `os.path.abspath`
 
 - Find common prefix of given paths
 
@@ -48,13 +52,13 @@ class MyProc(Proc):
 
   - `dirname`: `path.dirname`
   - `basename`: `path.basename`
-  - `ext`: get the extension (`/a/b/c.txt -> .txt`)
-  - `ext0`: get the extension without dot (`/a/b/c.txt -> txt`)
+  - `ext`, `suffix`: get the extension (`/a/b/c.txt -> .txt`)
+  - `ext0`, `suffix0`: get the extension without dot (`/a/b/c.txt -> txt`)
   - `prefix`: get the prefix of a path (`/a/b/c.d.txt -> /a/b/c.d`)
   - `prefix0`: get the prefix of a path without dot in basename (`/a/b/c.d.txt -> /a/b/c`)
   - `filename`, `fn`, `stem`: get the stem of a path (`/a/b.c.txt -> b.c`)
   - `filename0`, `fn0`, `stem0`: get the stem of a path without dot (`/a/b.c.txt -> b`)
-  - `joinpaths`: join path parts (`os.path.join`)
+  - `joinpaths`, `joinpath`: join path parts (`os.path.join`)
   - `as_path`: convert a string into a `pathlib.Path` object
 
 - Path stat
@@ -75,9 +79,8 @@ class MyProc(Proc):
   - `squote`: put single quotes around data (`1 -> '1'`)
 
 - Configurations
-  - `json`: `json.dumps`
-  - `json_dump`: Load json froma  file
-  - `json_dumps`: Alias of `json`
+  - `json`, `json_dumps`: `json.dumps`
+  - `json_load`: Load json from a file
   - `json_loads`: `json.loads`
   - `toml`: `toml.dumps`
   - `toml_dump`: Load toml from a file
@@ -98,5 +101,6 @@ class MyProc(Proc):
 - Other
 
   - `regex_replace`: Replace a string using regex
+  - `slugify`: Slugify a string
 
 [1]: https://github.com/pwwang/pipen

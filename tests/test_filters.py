@@ -44,6 +44,7 @@ def test_commonprefix():
 
 def test_ext():
     assert f.ext("/a/b.txt") == ".txt"
+    assert f.suffix("/a/b.txt") == ".txt"
     assert f.ext("/a/b.txt.gz", ignore=".gz") == ".txt"
     assert f.ext("/a/b.txt.gz", ignore=[".gz"]) == ".txt"
     assert f.ext("/a/b.txt.gz", ignore=[".gz", "txt"], recursive=True) == ""
@@ -52,6 +53,7 @@ def test_ext():
 
 def test_ext0():
     assert f.ext0("/a/b.txt") == "txt"
+    assert f.suffix0("/a/b.txt") == "txt"
     assert f.ext0("/a/b.txt.gz", ignore=".gz") == "txt"
     assert f.ext0("/a/b.txt.gz", ignore=[".gz"]) == "txt"
     assert f.ext0("/a/b.txt.gz", ignore=[".gz", "txt"], recursive=True) == ""
@@ -76,6 +78,8 @@ def test_prefix0():
 
 def test_filename():
     assert f.filename("/a/b.c.txt") == "b.c"
+    assert f.fn("/a/b.c.txt") == "b.c"
+    assert f.stem("/a/b.c.txt") == "b.c"
     assert f.filename("/a/b.c.txt", ignore=".txt") == "b"
     assert f.filename("/a/b.c.txt", ignore=[".txt"]) == "b"
     assert f.filename("/a/b.c.d.txt", ignore=[".txt", "d"], recursive=True) == "b"
@@ -84,6 +88,8 @@ def test_filename():
 
 def test_filename0():
     assert f.filename0("/a/b.c.txt") == "b"
+    assert f.fn0("/a/b.c.txt") == "b"
+    assert f.stem0("/a/b.c.txt") == "b"
     assert f.filename0("/a/b.c.txt", ignore=".txt") == "b"
     assert f.filename0("/a/b.c.txt", ignore=[".txt"]) == "b"
     assert f.filename0("/a/b.c.txt", ignore=[".txt", "c"], recursive=True) == "b"
@@ -100,6 +106,7 @@ def test_squote():
 
 def test_joinpaths():
     assert f.joinpaths("a", "b") == "a/b"
+    assert f.joinpath("a", "b") == "a/b"
 
 
 def test_json():
@@ -152,6 +159,14 @@ def test_config(tmp_path):
     conf = tmp_path / "config.toml"
     conf.write_text("a = 1")
     out = f.config(conf)
+    assert out == {"a": 1}
+
+    out = f.toml_load(conf)
+    assert out == {"a": 1}
+
+    jfile = tmp_path / "config.json"
+    jfile.write_text('{"a": 1}')
+    out = f.json_load(jfile)
     assert out == {"a": 1}
 
     conf = tmp_path / "config"
