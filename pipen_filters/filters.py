@@ -178,7 +178,9 @@ def basename(pth: PathLike) -> str:
 def ext(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
     """Get the extension of a file
 
-    For example, `/a/b/c.txt => .txt`
+    For example, `/a/b/c.txt => .txt`.
+
+    Aliases: `suffix`
 
     Args:
         pth: The path to the file
@@ -196,7 +198,9 @@ def ext(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) ->
 def ext0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
     """Get the extension of a file without the leading dot
 
-    For example, `/a/b/c.txt => txt`
+    For example, `/a/b/c.txt => txt`.
+
+    Aliases: `suffix0`
 
     Args:
         pth: The path to the file
@@ -248,9 +252,11 @@ def prefix0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False
 
 @add_filter(["fn", "stem"])
 def filename(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
-    """Get the filename of a file
+    """Get the filename of a file.
 
-    For example, `/a/b/c.d.txt => c.d`
+    For example, `/a/b/c.d.txt => c.d`.
+
+    Aliases: `fn`, `stem`
 
     Args:
         pth: The path to the file
@@ -268,7 +274,9 @@ def filename(pth: PathLike, ignore: list[str] | str = [], recursive: bool = Fals
 def filename0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
     """Get the filename of a file without the extension
 
-    For example, `/a/b/c.d.txt => c`
+    For example, `/a/b/c.d.txt => c`.
+
+    Aliases: `fn0`, `stem0`
 
     Args:
         pth: The path to the file
@@ -284,7 +292,11 @@ def filename0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = Fal
 
 @add_filter("joinpath")
 def joinpaths(*paths: PathLike) -> str:
-    """Join paths
+    """Join paths.
+
+    For example, `joinpaths("a", "b") => "a/b"`.
+
+    Aliases: `joinpath`
 
     Args:
         *paths: The paths to join
@@ -466,7 +478,9 @@ def squote(var: Any) -> str:
 
 @add_filter("json")
 def json_dumps(var: Any) -> str:
-    """Dump an object to json
+    """Dump an object to json.
+
+    Aliases: `json`
 
     Args:
         var: The object to dump
@@ -505,7 +519,9 @@ def json_loads(jsonstr: str) -> Any:
 
 @add_filter("toml_dumps")
 def toml(var: Any) -> str:
-    """Dump an object to toml
+    """Dump an object to toml.
+
+    Aliases: `toml_dumps`
 
     Args:
         var: The object to dump
