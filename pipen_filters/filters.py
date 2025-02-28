@@ -1,22 +1,23 @@
 """Provides the filters"""
+
 from __future__ import annotations
 
 import json
-from glob import glob as pyglob
-from os import PathLike, path, readlink as os_readlink
+from functools import wraps
+from os import PathLike, path
 from pathlib import Path
 from typing import Any, List, Mapping, Union, Dict, Callable
 
-import rtoml
 from diot import Diot
 from simpleconf import Config
 from simpleconf.caster import cast, null_caster
+from yunpath import AnyPath, CloudPath
 
 FILTERS: Dict[str, Callable] = {}
 
 
 def add_filter(
-    aliases: str | list[str] | Callable | None = None
+    aliases: str | list[str] | Callable | None = None,
 ) -> Callable[[Callable], Callable]:
     """Add a filter to the FILTERS
 
@@ -60,19 +61,19 @@ def add_filter(
 
 def _neg1_if_error(func: Callable) -> Callable:
     """Return -1 if an error occurs"""
+
+    @wraps(func)
     def _func(*args: Any, **kwargs: Any) -> int:
         try:
             return func(*args, **kwargs)
-        except (FileNotFoundError, OSError):
+        except Exception:
             return -1
 
     return _func
 
 
 def _splitexit(
-    pth: PathLike,
-    ignore: list[str] | str,
-    recursive: bool
+    pth: str | PathLike, ignore: list[str] | str, recursive: bool
 ) -> tuple[str, str]:
     """Split the extension with leading dot of a file
 
@@ -87,6 +88,7 @@ def _splitexit(
     """
     if isinstance(ignore, str):
         ignore = [ignore]
+
     ignore = ["." + ext.lstrip(".") for ext in ignore]
     pth, last = path.splitext(pth)
     if not recursive:
@@ -98,7 +100,7 @@ def _splitexit(
 
 
 @add_filter
-def realpath(pth: PathLike) -> str:
+def realpath(pth: str | PathLike) -> str:
     """Get the real path of a path
 
     Args:
@@ -107,11 +109,11 @@ def realpath(pth: PathLike) -> str:
     Returns:
         The real path of the file
     """
-    return path.realpath(pth)
+    return str(AnyPath(pth).resolve())
 
 
 @add_filter
-def readlink(pth: PathLike) -> str:
+def readlink(pth: str | PathLike) -> str:
     """Get the link of a symlink
 
     Args:
@@ -120,11 +122,11 @@ def readlink(pth: PathLike) -> str:
     Returns:
         The link of the symlink
     """
-    return os_readlink(pth)
+    return str(AnyPath(pth).readlink())
 
 
 @add_filter
-def commonprefix(*paths: PathLike, basename_only: bool = True) -> str:
+def commonprefix(*paths: str | PathLike, basename_only: bool = True) -> str:
     """Get the common prefix of a set of paths
 
     Examples:
@@ -140,12 +142,12 @@ def commonprefix(*paths: PathLike, basename_only: bool = True) -> str:
     Returns:
         The common prefix of the paths
     """
-    paths = [path.basename(pth) if basename_only else pth for pth in paths]
+    paths = [AnyPath(pth).name if basename_only else str(pth) for pth in paths]
     return path.commonprefix(paths)
 
 
 @add_filter
-def dirname(pth: PathLike) -> str:
+def dirname(pth: str | PathLike) -> str:
     """Get the directory name of a path
 
     For example, `/a/b/c.txt => /a/b/`
@@ -156,11 +158,11 @@ def dirname(pth: PathLike) -> str:
     Returns:
         The directory name of the file
     """
-    return path.dirname(pth)
+    return str(AnyPath(pth).parent)
 
 
 @add_filter
-def basename(pth: PathLike) -> str:
+def basename(pth: str | PathLike) -> str:
     """Get the basename of a path
 
     For example, `/a/b/c.txt => c.txt`
@@ -171,11 +173,15 @@ def basename(pth: PathLike) -> str:
     Returns:
         The basename of the file
     """
-    return path.basename(pth)
+    return str(AnyPath(pth).name)
 
 
 @add_filter("suffix")
-def ext(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
+def ext(
+    pth: str | PathLike,
+    ignore: list[str] | str = [],
+    recursive: bool = False,
+) -> str:
     """Get the extension of a file
 
     For example, `/a/b/c.txt => .txt`.
@@ -195,7 +201,11 @@ def ext(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) ->
 
 
 @add_filter("suffix0")
-def ext0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
+def ext0(
+    pth: str | PathLike,
+    ignore: list[str] | str = [],
+    recursive: bool = False,
+) -> str:
     """Get the extension of a file without the leading dot
 
     For example, `/a/b/c.txt => txt`.
@@ -215,7 +225,11 @@ def ext0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -
 
 
 @add_filter
-def prefix(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
+def prefix(
+    pth: str | PathLike,
+    ignore: list[str] | str = [],
+    recursive: bool = False,
+) -> str:
     """Get the prefix of a file
 
     For example, `/a/b/c.txt => /a/b/c`
@@ -233,7 +247,11 @@ def prefix(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False)
 
 
 @add_filter
-def prefix0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
+def prefix0(
+    pth: str | PathLike,
+    ignore: list[str] | str = [],
+    recursive: bool = False,
+) -> str:
     """Get the prefix of a file without the extension
 
     For example, `/a/b/c.d.txt => /a/b/c.d`
@@ -247,11 +265,15 @@ def prefix0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False
     Returns:
         The prefix of the file without the extension
     """
-    return path.join(path.dirname(pth), FILTERS["filename0"](pth, ignore, recursive))
+    return str(AnyPath(pth).parent / FILTERS["filename0"](pth, ignore, recursive))
 
 
 @add_filter(["fn", "stem"])
-def filename(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
+def filename(
+    pth: str | PathLike,
+    ignore: list[str] | str = [],
+    recursive: bool = False,
+) -> str:
     """Get the filename of a file.
 
     For example, `/a/b/c.d.txt => c.d`.
@@ -267,11 +289,15 @@ def filename(pth: PathLike, ignore: list[str] | str = [], recursive: bool = Fals
     Returns:
         The filename of the file
     """
-    return path.basename(_splitexit(pth, ignore, recursive)[0])
+    return basename(_splitexit(pth, ignore, recursive)[0])
 
 
 @add_filter(["fn0", "stem0"])
-def filename0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = False) -> str:
+def filename0(
+    pth: str | PathLike,
+    ignore: list[str] | str = [],
+    recursive: bool = False,
+) -> str:
     """Get the filename of a file without the extension
 
     For example, `/a/b/c.d.txt => c`.
@@ -291,7 +317,7 @@ def filename0(pth: PathLike, ignore: list[str] | str = [], recursive: bool = Fal
 
 
 @add_filter("joinpath")
-def joinpaths(*paths: PathLike) -> str:
+def joinpaths(pathsegment: str | PathLike, *pathsegments: str | PathLike) -> str:
     """Join paths.
 
     For example, `joinpaths("a", "b") => "a/b"`.
@@ -299,16 +325,17 @@ def joinpaths(*paths: PathLike) -> str:
     Aliases: `joinpath`
 
     Args:
-        *paths: The paths to join
+        pathsegment: The path to join
+        *pathsegments: The paths to join
 
     Returns:
         The joined path
     """
-    return path.join(*paths)
+    return str(AnyPath(pathsegment).joinpath(*pathsegments))
 
 
 @add_filter
-def as_path(pth: PathLike) -> Path:
+def as_path(pth: str | PathLike) -> Path | CloudPath:
     """Convert a path to a Path object
 
     Args:
@@ -317,11 +344,11 @@ def as_path(pth: PathLike) -> Path:
     Returns:
         The Path object
     """
-    return Path(pth)
+    return AnyPath(pth)
 
 
 @add_filter
-def isdir(pth: PathLike) -> bool:
+def isdir(pth: str | PathLike) -> bool:
     """Check if a path is a directory
 
     Args:
@@ -330,11 +357,11 @@ def isdir(pth: PathLike) -> bool:
     Returns:
         True if the path is a directory, False otherwise
     """
-    return path.isdir(pth)
+    return AnyPath(pth).is_dir()
 
 
 @add_filter
-def isfile(pth: PathLike) -> bool:
+def isfile(pth: str | PathLike) -> bool:
     """Check if a path is a file
 
     Args:
@@ -343,11 +370,11 @@ def isfile(pth: PathLike) -> bool:
     Returns:
         True if the path is a file, False otherwise
     """
-    return path.isfile(pth)
+    return AnyPath(pth).is_file()
 
 
 @add_filter
-def islink(pth: PathLike) -> bool:
+def islink(pth: str | PathLike) -> bool:
     """Check if a path is a symlink
 
     Args:
@@ -356,11 +383,11 @@ def islink(pth: PathLike) -> bool:
     Returns:
         True if the path is a symlink, False otherwise
     """
-    return path.islink(pth)
+    return AnyPath(pth).is_symlink()
 
 
 @add_filter
-def exists(pth: PathLike) -> bool:
+def exists(pth: str | PathLike) -> bool:
     """Check if a path exists
 
     Args:
@@ -369,11 +396,12 @@ def exists(pth: PathLike) -> bool:
     Returns:
         True if the path exists, False otherwise
     """
-    return path.exists(pth)
+    return AnyPath(pth).exists()
 
 
 @add_filter
-def getsize(pth: PathLike) -> int:
+@_neg1_if_error
+def getsize(pth: str | PathLike) -> int:
     """Get the size of a file, return -1 if the file does not exist
 
     Args:
@@ -382,11 +410,12 @@ def getsize(pth: PathLike) -> int:
     Returns:
         The size of the file
     """
-    return _neg1_if_error(path.getsize)(pth)
+    return AnyPath(pth).stat().st_size
 
 
 @add_filter
-def getmtime(pth: PathLike) -> int:
+@_neg1_if_error
+def getmtime(pth: str | PathLike) -> int:
     """Get the modification time of a file, return -1 if the file does not exist
 
     Args:
@@ -395,11 +424,12 @@ def getmtime(pth: PathLike) -> int:
     Returns:
         The modification time of the file
     """
-    return _neg1_if_error(path.getmtime)(pth)
+    return AnyPath(pth).stat().st_mtime
 
 
 @add_filter
-def getctime(pth: PathLike) -> int:
+@_neg1_if_error
+def getctime(pth: str | PathLike) -> int:
     """Get the creation time of a file, return -1 if the file does not exist
 
     Args:
@@ -408,11 +438,12 @@ def getctime(pth: PathLike) -> int:
     Returns:
         The creation time of the file
     """
-    return _neg1_if_error(path.getctime)(pth)
+    return AnyPath(pth).stat().st_ctime
 
 
 @add_filter
-def getatime(pth: PathLike) -> int:
+@_neg1_if_error
+def getatime(pth: str | PathLike) -> int:
     """Get the access time of a file, return -1 if the file does not exist
 
     Args:
@@ -421,12 +452,12 @@ def getatime(pth: PathLike) -> int:
     Returns:
         The access time of the file
     """
-    return _neg1_if_error(path.getatime)(pth)
+    return AnyPath(pth).stat().st_atime
 
 
 @add_filter
 def isempty(
-    pth: PathLike,
+    pth: str | PathLike,
     ignore_ws: bool = True,
     nonfile_as_empty: bool = False,
 ) -> bool:
@@ -440,14 +471,14 @@ def isempty(
     Returns:
         True if the file is empty, False otherwise
     """
-    if not path.isfile(pth):
+    pth = AnyPath(pth)
+    if not pth.is_file():
         return nonfile_as_empty
 
     if not ignore_ws:
-        return path.getsize(pth) == 0
+        return getsize(pth) == 0
 
-    with open(pth) as fvar:
-        return fvar.read().strip() == ""
+    return pth.read_text().strip() == ""
 
 
 @add_filter
@@ -492,7 +523,7 @@ def json_dumps(var: Any) -> str:
 
 
 @add_filter
-def json_load(pth: PathLike) -> Any:
+def json_load(pth: str | PathLike) -> Any:
     """Load a json file
 
     Args:
@@ -529,11 +560,11 @@ def toml(var: Any) -> str:
     Returns:
         The toml string
     """
-    return rtoml.dumps(var)
+    return Diot(var).to_toml()
 
 
 @add_filter
-def toml_load(pth: PathLike) -> Any:
+def toml_load(pth: str | PathLike) -> Any:
     """Load a toml file. `null` will be loaded as None
 
     Args:
@@ -555,7 +586,7 @@ def toml_loads(tomlstr: str) -> Any:
     Returns:
         The loaded object
     """
-    return cast(Diot(rtoml.loads(tomlstr)), [null_caster])
+    return cast(Config.load(tomlstr, loader="tomls"), [null_caster])
 
 
 @add_filter
@@ -577,7 +608,7 @@ def config(x: Any, loader: str = None) -> Mapping[str, Any]:
     if not isinstance(x, (Path, str)):  # assume dict
         return Config.load_one(x, loader="dict")
 
-    if isinstance(x, str) and not Path(x).is_file():
+    if isinstance(x, str) and not AnyPath(x).is_file():
         if loader == "toml":
             return Diot(FILTERS["toml_loads"](x))
         if loader == "json":
@@ -588,20 +619,23 @@ def config(x: Any, loader: str = None) -> Mapping[str, Any]:
 
 
 @add_filter
-def glob(*paths: PathLike) -> List[str]:
+def glob(pathsegment: str | PathLike, *pathsegments: str | PathLike) -> List[str]:
     """Glob a path
 
     Args:
-        *paths: The paths to glob
+        pathsegment: The path to glob
+        *pathsegments: The paths to glob
 
     Returns:
         The globbed paths
     """
-    return list(sorted(pyglob(path.join(*paths))))
+    return list(
+        sorted([str(p) for p in AnyPath(pathsegment).glob("/".join(pathsegments))])
+    )
 
 
 @add_filter
-def glob0(*paths: PathLike) -> str:
+def glob0(*paths: str | PathLike) -> str:
     """Glob a path and return the first result
 
     Args:
@@ -614,7 +648,7 @@ def glob0(*paths: PathLike) -> str:
 
 
 @add_filter
-def read(file: PathLike, *args: Any, **kwargs: Any) -> Union[str, bytes]:
+def read(file: str | PathLike, *args: Any, **kwargs: Any) -> Union[str, bytes]:
     """Read the contents from a file
 
     Args:
@@ -625,13 +659,13 @@ def read(file: PathLike, *args: Any, **kwargs: Any) -> Union[str, bytes]:
     Returns:
         The contents of the file
     """
-    with open(file, *args, **kwargs) as fvar:
+    with AnyPath(file).open(*args, **kwargs) as fvar:
         return fvar.read()
 
 
 @add_filter
 def readlines(
-    file: PathLike,
+    file: str | PathLike,
     *args: Any,
     **kwargs: Any,
 ) -> Union[List[str], List[bytes]]:
@@ -668,6 +702,7 @@ def regex_replace(
         The replaced string
     """
     import re
+
     return re.sub(pattern, repl, string, count=count, flags=flags)
 
 
@@ -684,4 +719,5 @@ def slugify(string: str, *args: Any, **kwargs: Any) -> str:
         The slugified string
     """
     from slugify import slugify as _slugify
+
     return _slugify(string, *args, **kwargs)

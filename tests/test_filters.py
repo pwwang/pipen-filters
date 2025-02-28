@@ -235,3 +235,47 @@ def test_regex_replace():
     assert f.regex_replace("a", "a", "b", count=1) == "b"
     assert f.regex_replace("a", "a", "b", flags=0) == "b"
     assert f.regex_replace("a1b2c3", r"(\d+)", "x\\1") == "ax1bx2cx3"
+
+
+def test_cloud_paths():
+    cloud_path = "gs://bucket/path/to/file.txt"
+
+    # Test dirname
+    assert f.dirname(cloud_path) == "gs://bucket/path/to"
+
+    # Test basename
+    assert f.basename(cloud_path) == "file.txt"
+
+    # Test ext/suffix
+    assert f.ext(cloud_path) == ".txt"
+    assert f.suffix(cloud_path) == ".txt"
+    assert f.ext("gs://bucket/path/to/file.txt.gz", ignore=".gz") == ".txt"
+
+    # Test ext0/suffix0
+    assert f.ext0(cloud_path) == "txt"
+    assert f.suffix0(cloud_path) == "txt"
+
+    # Test prefix
+    assert f.prefix(cloud_path) == "gs://bucket/path/to/file"
+    assert f.prefix("gs://bucket/path/to/file.txt.gz", ignore=".gz") == "gs://bucket/path/to/file"
+
+    # Test prefix0
+    assert f.prefix0(cloud_path) == "gs://bucket/path/to/file"
+
+    # Test filename/fn/stem
+    assert f.filename(cloud_path) == "file"
+    assert f.fn(cloud_path) == "file"
+    assert f.stem(cloud_path) == "file"
+
+    # Test filename0/fn0/stem0
+    assert f.filename0(cloud_path) == "file"
+    assert f.fn0(cloud_path) == "file"
+    assert f.stem0(cloud_path) == "file"
+
+    # Test joinpaths/joinpath
+    assert f.joinpaths("gs://bucket", "path/to/file") == "gs://bucket/path/to/file"
+    assert f.joinpath("gs://bucket/path", "to/file") == "gs://bucket/path/to/file"
+
+    # Test as_path (just verify it doesn't raise an exception)
+    path_obj = f.as_path(cloud_path)
+    assert str(path_obj) == cloud_path

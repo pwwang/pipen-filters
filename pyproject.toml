@@ -10,22 +10,23 @@ repository = "https://github.com/pwwang/pipen-filters"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pipen = "^0.15.0"
+pipen = { version = "^0.16.0a4", allow-prereleases = true }
 
 [tool.poetry.build]
 generate-setup-file = true
-
-[tool.poetry.dev-dependencies]
-pytest = "^8"
-pytest-cov = "^5"
-pytest-asyncio = "^0"
-python-slugify = "^8"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.0"
 mkdocs-rtd = "^0.0.14"
 pymdown-extensions = "^10.8.1"
 mkapi-fix = "^0.1.1"
+
+[tool.poetry.group.dev.dependencies]
+google-cloud-storage = "^3"
+pytest = "^8"
+pytest-cov = "^5"
+pytest-asyncio = "^0"
+python-slugify = "^8"
 
 [build-system]
 requires = ["poetry>=1.0"]
@@ -39,6 +40,7 @@ addopts = "-vv -W error::UserWarning --cov-config=.coveragerc --cov=pipen_filter
 console_output_style = "progress"
 junit_family = "xunit1"
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 
 [tool.mypy]
 ignore_missing_imports = true
@@ -49,5 +51,5 @@ strict_optional = false
 
 [tool.black]
 line-length = 88
-target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+target-version = ['py39', 'py310', 'py311', 'py312']
 include = '\.pyi?$'
