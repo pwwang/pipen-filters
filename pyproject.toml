@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pipen-filters"
-version = "0.15.0a1"
+version = "0.15.0"
 description = "Add a set of useful filters for pipen templates"
 authors = ["pwwang <pwwang@pwwang.com>"]
 license = "MIT"
@@ -10,7 +10,7 @@ repository = "https://github.com/pwwang/pipen-filters"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pipen = { version = "^0.16.0a4", allow-prereleases = true }
+pipen = "^0.16.0"
 
 [tool.poetry.build]
 generate-setup-file = true
