@@ -90,7 +90,7 @@ def _splitexit(
         ignore = [ignore]
 
     ignore = ["." + ext.lstrip(".") for ext in ignore]
-    pth, last = path.splitext(pth)
+    pth, last = path.splitext(str(pth))
     if not recursive:
         return (pth, last) if last not in ignore else path.splitext(pth)
 
