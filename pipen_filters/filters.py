@@ -482,28 +482,38 @@ def isempty(
 
 
 @add_filter
-def quote(var: Any) -> str:
+def quote(var: Any, quote_none: bool = False) -> str:
     """Quote a string
 
     Args:
         var: The string to quote
+        quote_none: Quote None as '"None"'?
+            Otherwise, return 'None', without quotes
 
     Returns:
         The quoted string
     """
+    if var is None and not quote_none:
+        return 'None'
+
     return json.dumps(str(var))
 
 
 @add_filter
-def squote(var: Any) -> str:
+def squote(var: Any, quote_none: bool = False) -> str:
     """Quote a string with single quotes
 
     Args:
         var: The string to quote
+        quote_none: Quote None as "'None'"?
+            Otherwise, return 'None', without quotes
 
     Returns:
         The quoted string
     """
+    if var is None and not quote_none:
+        return 'None'
+
     return repr(str(var))
 
 

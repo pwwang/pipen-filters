@@ -98,10 +98,14 @@ def test_filename0():
 
 def test_quote():
     assert f.quote("1") == '"1"'
+    assert f.quote(None) == 'None'
+    assert f.quote(None, quote_none=True) == '"None"'
 
 
 def test_squote():
     assert f.squote("1") == "'1'"
+    assert f.squote(None) == 'None'
+    assert f.squote(None, quote_none=True) == "'None'"
 
 
 def test_joinpaths():
