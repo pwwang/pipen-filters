@@ -8,7 +8,7 @@ from pipen_filters import PipenFilters
 async def test_plugin():
     pf = PipenFilters()
     p = Pipen(plugins=["filters"])
-    await pf.on_init.impl(p)
+    await pf.on_init(p)
     assert "template_opts" in p.config
     assert "filters" in p.config.template_opts
     assert "globals" in p.config.template_opts
