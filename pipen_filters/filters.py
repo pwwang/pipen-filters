@@ -11,7 +11,7 @@ from typing import Any, List, Mapping, Union, Dict, Callable
 from diot import Diot
 from simpleconf import Config
 from simpleconf.caster import cast, null_caster
-from yunpath import AnyPath, CloudPath
+from panpath import PanPath, CloudPath
 
 FILTERS: Dict[str, Callable] = {}
 
@@ -109,7 +109,7 @@ def realpath(pth: str | PathLike) -> str:
     Returns:
         The real path of the file
     """
-    return str(AnyPath(pth).resolve())
+    return str(PanPath(pth).resolve())
 
 
 @add_filter
@@ -122,7 +122,7 @@ def readlink(pth: str | PathLike) -> str:
     Returns:
         The link of the symlink
     """
-    return str(AnyPath(pth).readlink())
+    return str(PanPath(pth).readlink())
 
 
 @add_filter
@@ -142,7 +142,7 @@ def commonprefix(*paths: str | PathLike, basename_only: bool = True) -> str:
     Returns:
         The common prefix of the paths
     """
-    paths = [AnyPath(pth).name if basename_only else str(pth) for pth in paths]
+    paths = [PanPath(pth).name if basename_only else str(pth) for pth in paths]
     return path.commonprefix(paths)
 
 
@@ -158,7 +158,7 @@ def dirname(pth: str | PathLike) -> str:
     Returns:
         The directory name of the file
     """
-    return str(AnyPath(pth).parent)
+    return str(PanPath(pth).parent)
 
 
 @add_filter
@@ -173,7 +173,7 @@ def basename(pth: str | PathLike) -> str:
     Returns:
         The basename of the file
     """
-    return str(AnyPath(pth).name)
+    return str(PanPath(pth).name)
 
 
 @add_filter("suffix")
@@ -265,7 +265,7 @@ def prefix0(
     Returns:
         The prefix of the file without the extension
     """
-    return str(AnyPath(pth).parent / FILTERS["filename0"](pth, ignore, recursive))
+    return str(PanPath(pth).parent / FILTERS["filename0"](pth, ignore, recursive))
 
 
 @add_filter(["fn", "stem"])
@@ -331,7 +331,7 @@ def joinpaths(pathsegment: str | PathLike, *pathsegments: str | PathLike) -> str
     Returns:
         The joined path
     """
-    return str(AnyPath(pathsegment).joinpath(*pathsegments))
+    return str(PanPath(pathsegment).joinpath(*pathsegments))
 
 
 @add_filter
@@ -344,7 +344,7 @@ def as_path(pth: str | PathLike) -> Path | CloudPath:
     Returns:
         The Path object
     """
-    return AnyPath(pth)
+    return PanPath(pth)
 
 
 @add_filter
@@ -357,7 +357,7 @@ def isdir(pth: str | PathLike) -> bool:
     Returns:
         True if the path is a directory, False otherwise
     """
-    return AnyPath(pth).is_dir()
+    return PanPath(pth).is_dir()
 
 
 @add_filter
@@ -370,7 +370,7 @@ def isfile(pth: str | PathLike) -> bool:
     Returns:
         True if the path is a file, False otherwise
     """
-    return AnyPath(pth).is_file()
+    return PanPath(pth).is_file()
 
 
 @add_filter
@@ -383,7 +383,7 @@ def islink(pth: str | PathLike) -> bool:
     Returns:
         True if the path is a symlink, False otherwise
     """
-    return AnyPath(pth).is_symlink()
+    return PanPath(pth).is_symlink()
 
 
 @add_filter
@@ -396,7 +396,7 @@ def exists(pth: str | PathLike) -> bool:
     Returns:
         True if the path exists, False otherwise
     """
-    return AnyPath(pth).exists()
+    return PanPath(pth).exists()
 
 
 @add_filter
@@ -410,7 +410,7 @@ def getsize(pth: str | PathLike) -> int:
     Returns:
         The size of the file
     """
-    return AnyPath(pth).stat().st_size
+    return PanPath(pth).stat().st_size
 
 
 @add_filter
@@ -424,7 +424,7 @@ def getmtime(pth: str | PathLike) -> int:
     Returns:
         The modification time of the file
     """
-    return AnyPath(pth).stat().st_mtime
+    return PanPath(pth).stat().st_mtime
 
 
 @add_filter
@@ -438,7 +438,7 @@ def getctime(pth: str | PathLike) -> int:
     Returns:
         The creation time of the file
     """
-    return AnyPath(pth).stat().st_ctime
+    return PanPath(pth).stat().st_ctime
 
 
 @add_filter
@@ -452,7 +452,7 @@ def getatime(pth: str | PathLike) -> int:
     Returns:
         The access time of the file
     """
-    return AnyPath(pth).stat().st_atime
+    return PanPath(pth).stat().st_atime
 
 
 @add_filter
@@ -471,7 +471,7 @@ def isempty(
     Returns:
         True if the file is empty, False otherwise
     """
-    pth = AnyPath(pth)
+    pth = PanPath(pth)
     if not pth.is_file():
         return nonfile_as_empty
 
@@ -618,7 +618,7 @@ def config(x: Any, loader: str = None) -> Mapping[str, Any]:
     if not isinstance(x, (Path, str)):  # assume dict
         return Config.load_one(x, loader="dict")
 
-    if isinstance(x, str) and not AnyPath(x).is_file():
+    if isinstance(x, str) and not PanPath(x).is_file():
         if loader == "toml":
             return Diot(FILTERS["toml_loads"](x))
         if loader == "json":
@@ -640,7 +640,7 @@ def glob(pathsegment: str | PathLike, *pathsegments: str | PathLike) -> List[str
         The globbed paths
     """
     return list(
-        sorted([str(p) for p in AnyPath(pathsegment).glob("/".join(pathsegments))])
+        sorted([str(p) for p in PanPath(pathsegment).glob("/".join(pathsegments))])
     )
 
 
@@ -669,7 +669,7 @@ def read(file: str | PathLike, *args: Any, **kwargs: Any) -> Union[str, bytes]:
     Returns:
         The contents of the file
     """
-    with AnyPath(file).open(*args, **kwargs) as fvar:
+    with PanPath(file).open(*args, **kwargs) as fvar:
         return fvar.read()
 
 
