@@ -10,7 +10,7 @@ from .filters import FILTERS
 if TYPE_CHECKING:  # pragma: no cover
     from pipen import Pipen
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 class PipenFilters:
