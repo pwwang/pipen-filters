@@ -27,18 +27,18 @@ files = [
 
 [[package]]
 name = "argx"
-version = "0.4.0"
+version = "0.4.1"
 description = "Super-charged argparse for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "argx-0.4.0-py3-none-any.whl", hash = "sha256:0856b7af4728a6c6d21162172612ef3a316a44eafe41859b94adba1d6d2e2676"},
-    {file = "argx-0.4.0.tar.gz", hash = "sha256:20892280b7386ab540f0e39a4c380cbef53a899d8b3c79c9528c79e7e7c560c2"},
+    {file = "argx-0.4.1-py3-none-any.whl", hash = "sha256:30eba009c5f4fa67b8024db614f0488ba3c732b726e0b78c1b16357b71c26667"},
+    {file = "argx-0.4.1.tar.gz", hash = "sha256:42e1ba973799071e88ce724220b33009411e97b6c70cbea5220c70f91dbccdd3"},
 ]
 
 [package.dependencies]
-python-simpleconf = ">=0.7,<0.8"
+python-simpleconf = ">=0.8,<0.9"
 
 [package.extras]
 anypath = ["panpath (>=0.4,<0.5)"]
@@ -76,14 +76,14 @@ files = [
 
 [[package]]
 name = "certifi"
-version = "2025.11.12"
+version = "2026.1.4"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
 files = [
-    {file = "certifi-2025.11.12-py3-none-any.whl", hash = "sha256:97de8790030bbd5c2d96b7ec782fc2f7820ef8dba6db909ccf95449f2d062d4b"},
-    {file = "certifi-2025.11.12.tar.gz", hash = "sha256:d8ab5478f2ecd78af242878415affce761ca6bc54a22a27e026d7c25357c3316"},
+    {file = "certifi-2026.1.4-py3-none-any.whl", hash = "sha256:9943707519e4add1115f44c2bc244f782c0249876bf51b6599fee1ffbedd685c"},
+    {file = "certifi-2026.1.4.tar.gz", hash = "sha256:ac726dd470482006e014ad384921ed6438c457018f4b3d204aea4281258b2120"},
 ]
 
 [[package]]
@@ -599,14 +599,14 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.0)"]
 
 [[package]]
 name = "google-auth"
-version = "2.45.0"
+version = "2.46.0"
 description = "Google Authentication Library"
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
 files = [
-    {file = "google_auth-2.45.0-py2.py3-none-any.whl", hash = "sha256:82344e86dc00410ef5382d99be677c6043d72e502b625aa4f4afa0bdacca0f36"},
-    {file = "google_auth-2.45.0.tar.gz", hash = "sha256:90d3f41b6b72ea72dd9811e765699ee491ab24139f34ebf1ca2b9cc0c38708f3"},
+    {file = "google_auth-2.46.0-py3-none-any.whl", hash = "sha256:fa51659c3745cb7024dd073f4ab766222767ea5f7dee2472110eaa03c9dbd2cb"},
+    {file = "google_auth-2.46.0.tar.gz", hash = "sha256:cb04c071a73394a6e3b9e48c1a7f48506001175b33e9679587a0f5320a21a34d"},
 ]
 
 [package.dependencies]
@@ -622,7 +622,7 @@ pyjwt = ["cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=3
 pyopenssl = ["cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=38.0.3)", "pyopenssl (>=20.0.0)"]
 reauth = ["pyu2f (>=0.1.5)"]
 requests = ["requests (>=2.20.0,<3.0.0)"]
-testing = ["aiohttp (<3.10.0)", "aiohttp (>=3.6.2,<4.0.0)", "aioresponses", "cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=38.0.3)", "cryptography (>=38.0.3)", "flask", "freezegun", "grpcio", "mock", "oauth2client", "packaging", "pyjwt (>=2.0)", "pyopenssl (<24.3.0)", "pyopenssl (>=20.0.0)", "pytest", "pytest-asyncio", "pytest-cov", "pytest-localserver", "pyu2f (>=0.1.5)", "requests (>=2.20.0,<3.0.0)", "responses", "urllib3"]
+testing = ["aiohttp (<3.10.0)", "aiohttp (>=3.6.2,<4.0.0)", "aioresponses", "cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (<39.0.0) ; python_version < \"3.8\"", "cryptography (>=38.0.3)", "cryptography (>=38.0.3)", "flask", "freezegun", "grpcio", "oauth2client", "packaging", "pyjwt (>=2.0)", "pyopenssl (<24.3.0)", "pyopenssl (>=20.0.0)", "pytest", "pytest-asyncio", "pytest-cov", "pytest-localserver", "pyu2f (>=0.1.5)", "requests (>=2.20.0,<3.0.0)", "responses", "urllib3"]
 urllib3 = ["packaging", "urllib3"]
 
 [[package]]
@@ -1421,14 +1421,14 @@ xml = ["lxml (>=4.9.2)"]
 
 [[package]]
 name = "panpath"
-version = "0.4.8"
+version = "0.4.9"
 description = "Universal sync/async local/cloud path library with pathlib-compatible interface"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "panpath-0.4.8-py3-none-any.whl", hash = "sha256:d3dffda701b4503dccb437fe845a9882c4e3d35c38c26accfbd69d4b924a2dab"},
-    {file = "panpath-0.4.8.tar.gz", hash = "sha256:d6db046824a0924e37bea19afa88eca17fe4c3d8909bea05948ae4ac8f193315"},
+    {file = "panpath-0.4.9-py3-none-any.whl", hash = "sha256:566e5964c80f22a17f8cb9a99fa75aed98ab962e0fed377ea7842e1889c36cf3"},
+    {file = "panpath-0.4.9.tar.gz", hash = "sha256:9a623d65bcd1415e97b776dd59bbb89e43fb20846899e86daf6b2eb1332e2aaa"},
 ]
 
 [package.dependencies]
@@ -1474,14 +1474,14 @@ executing = ">=2.0,<3.0"
 
 [[package]]
 name = "pipen"
-version = "1.1.0rc3"
+version = "1.1.2"
 description = "A pipeline framework for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "pipen-1.1.0rc3-py3-none-any.whl", hash = "sha256:dcf2d0bc79f2927979c00df2f6c01d5b97ac88dd1103d990ce5b9186b018e6e2"},
-    {file = "pipen-1.1.0rc3.tar.gz", hash = "sha256:43fbc14417a21f29ecb13c8f04d3e600a80bc29188cddcb4ee632d17a4465b70"},
+    {file = "pipen-1.1.2-py3-none-any.whl", hash = "sha256:7a2f2bfb671c817ba7cf65c4bc7f495960c579de5f4943843d5731cbf977fe06"},
+    {file = "pipen-1.1.2.tar.gz", hash = "sha256:2d6f35933992e5b8061dde917ceadded2f9ec7fb0c456337575b8ec43bf33f5a"},
 ]
 
 [package.dependencies]
@@ -1490,7 +1490,7 @@ enlighten = ">=1,<2"
 liquidpy = ">=0.8,<0.9"
 pandas = ">=2.0,<3.0"
 pipda = ">=0.13,<0.14"
-python-simpleconf = {version = ">=0.7,<0.8", extras = ["toml"]}
+python-simpleconf = {version = ">=0.8,<0.9", extras = ["toml"]}
 varname = ">=0.15,<0.16"
 xqute = ">=2.0,<3.0"
 
@@ -1737,24 +1737,25 @@ six = ">=1.5"
 
 [[package]]
 name = "python-simpleconf"
-version = "0.7.2"
+version = "0.8.0"
 description = "Simple configuration management with python."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "python_simpleconf-0.7.2-py3-none-any.whl", hash = "sha256:7d0ce8febd1e0826084ad32c96ffa531c1ec40e7632b2abb67c02c41157bd4ab"},
-    {file = "python_simpleconf-0.7.2.tar.gz", hash = "sha256:03b01c6235f5f288f00ba590564b6bda56c0c1baba71fcf4612caa7c9e63de6f"},
+    {file = "python_simpleconf-0.8.0-py3-none-any.whl", hash = "sha256:2f8b550aa7d9b871516a8264541870036492367d2907c265aa8297d4297558cd"},
+    {file = "python_simpleconf-0.8.0.tar.gz", hash = "sha256:c96d51fd635a410f295c65ddccf5023a24cb1d35df69654a98874a0d37a67791"},
 ]
 
 [package.dependencies]
 diot = ">=0.3.2,<0.4.0"
+panpath = ">=0.4.8,<0.5.0"
 rtoml = {version = ">=0.12,<0.13", optional = true, markers = "sys_platform == \"linux\" and (extra == \"toml\" or extra == \"all\")"}
 tomli = {version = ">=2.0,<3.0", optional = true, markers = "sys_platform != \"linux\" and (extra == \"toml\" or extra == \"all\")"}
 
 [package.extras]
 all = ["iniconfig (>=2.0,<3.0)", "python-dotenv (>=1.1,<2.0)", "pyyaml (>=6,<7)", "rtoml (>=0.12,<0.13) ; sys_platform == \"linux\"", "tomli (>=2.0,<3.0) ; sys_platform != \"linux\""]
-cloud = ["yunpath (>=0.0.4,<0.0.5)"]
+async = ["aiofiles (>=23.0.0)"]
 env = ["python-dotenv (>=1.1,<2.0)"]
 ini = ["iniconfig (>=2.0,<3.0)"]
 toml = ["rtoml (>=0.12,<0.13) ; sys_platform == \"linux\"", "tomli (>=2.0,<3.0) ; sys_platform != \"linux\""]
@@ -2294,14 +2295,14 @@ files = [
 
 [[package]]
 name = "xqute"
-version = "2.0.2"
+version = "2.0.3"
 description = "A job management system for python"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "xqute-2.0.2-py3-none-any.whl", hash = "sha256:e6c4f41ab16dd8c2046a17069683c4ac5ed6c7220a133f6ce186d2a0c3b829ba"},
-    {file = "xqute-2.0.2.tar.gz", hash = "sha256:6b23ee9c4d992e19d301e13bc154423db6b669b4fcff1b7067d0157a7a3b5bd0"},
+    {file = "xqute-2.0.3-py3-none-any.whl", hash = "sha256:7e1d232b60bf32734f103f0d50222ec5c8adb80792828504adbd6536179334de"},
+    {file = "xqute-2.0.3.tar.gz", hash = "sha256:89c3b29cc6907ec62f5645f7bd289e9d79a93f7632ca2d200660b929811a8b3f"},
 ]
 
 [package.dependencies]
