@@ -344,7 +344,7 @@ def as_path(pth: str | PathLike) -> Path | CloudPath:
     Returns:
         The Path object
     """
-    return PanPath(pth)
+    return PanPath(str(pth))
 
 
 @add_filter
