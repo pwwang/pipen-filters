@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>pipen_filters.filters - pipen-filters</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="//use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet" />
+        <link href="//use.fontawesome.com/releases/v5.8.1/css/v4-shims.css" rel="stylesheet" />
+        <link href="../../../css/mkapi-common.css" rel="stylesheet" />
+        <link href="../../../style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pipen_filters.filters";
+        var mkdocs_page_input_path = "api/source/pipen_filters.filters.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../..">
+          <img src="../../../pipen-filters.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">pipen_filters</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipen_filters/">pipen_filters</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pipen_filters.filters/">pipen_filters.filters</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">pipen-filters</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">pipen_filters.filters</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/pipen-filters/edit/master/docs/api/source/pipen_filters.filters.md">Edit on pwwang/pipen-filters</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="mkapi-node">
+<h1 id="" class="mkapi-object mkapi-object-code plain">
+<span class="mkapi-object-kind mkapi-object-kind-code">SOURCE CODE</span>
+<span class="mkapi-object-prefix">pipen_filters.</span><span class="mkapi-object-name">filters</span>
+<span id="pipen_filters.filters"></span><a class="mkapi-docs-link" href="../../pipen_filters.filters">DOCS</a>
+</h1>
+
+<div class="mkapi-code">
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Provides the filters&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">diot</span><span class="w"> </span><span class="kn">import</span> <span class="n">Diot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">simpleconf</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">simpleconf.caster</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">null_caster</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">panpath</span><span class="w"> </span><span class="kn">import</span> <span class="n">PanPath</span><span class="p">,</span> <span class="n">CloudPath</span>
+
+<span class="n">FILTERS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_filter</span><span class="p">(</span><span id="pipen_filters.filters.add_filter"></span><a class="mkapi-docs-link" title="pipen_filters.filters.add_filter" href="../../pipen_filters.filters/#pipen_filters.filters.add_filter">DOCS</a>
+    <span class="n">aliases</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">],</span> <span class="n">Callable</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a filter to the FILTERS</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        Filters added: `myfilter`</span>
+<span class="sd">        &gt;&gt;&gt; @add_filter</span>
+<span class="sd">        ... def myfilter(var):</span>
+<span class="sd">        ...     return var</span>
+
+<span class="sd">        &gt;&gt;&gt; @add_filter()</span>
+<span class="sd">        ... def myfilter(var):</span>
+<span class="sd">        ...     return var</span>
+
+<span class="sd">        Filters added: `myfilter`, `myfilter2`</span>
+<span class="sd">        &gt;&gt;&gt; @add_filter(&quot;myfilter2&quot;)</span>
+<span class="sd">        ... def myfilter(var):</span>
+<span class="sd">        ...     return var</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        aliases: The aliases of the filter, the filter itself, or None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The filter itself if used directly `@add_filter`; or</span>
+<span class="sd">        The decorator to add the filter if used with arguments `@add_filter(...)`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">aliases</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">add_filter</span><span class="p">()(</span><span class="n">aliases</span><span class="p">)</span>
+
+    <span class="n">aliases</span> <span class="o">=</span> <span class="n">aliases</span> <span class="ow">or</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="p">[</span><span class="n">aliases</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_filter</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+        <span class="n">FILTERS</span><span class="p">[</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="k">for</span> <span class="n">alias</span> <span class="ow">in</span> <span class="n">aliases</span><span class="p">:</span>
+            <span class="n">FILTERS</span><span class="p">[</span><span class="n">alias</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="k">return</span> <span class="n">func</span>
+
+    <span class="k">return</span> <span class="n">_add_filter</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_neg1_if_error</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return -1 if an error occurs&quot;&quot;&quot;</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">_func</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_splitexit</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split the extension with leading dot of a file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The path and the extension (with leading dot)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ignore</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">ignore</span> <span class="o">=</span> <span class="p">[</span><span class="n">ignore</span><span class="p">]</span>
+
+    <span class="n">ignore</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">ignore</span><span class="p">]</span>
+    <span class="n">pth</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pth</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">recursive</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span> <span class="k">if</span> <span class="n">last</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignore</span> <span class="k">else</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">last</span> <span class="ow">in</span> <span class="n">ignore</span><span class="p">:</span>
+        <span class="n">pth</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pth</span><span class="p">,</span> <span class="n">last</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.realpath"></span><a class="mkapi-docs-link" title="pipen_filters.filters.realpath" href="../../pipen_filters.filters/#pipen_filters.filters.realpath">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">realpath</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the real path of a path</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The real path of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.readlink"></span><a class="mkapi-docs-link" title="pipen_filters.filters.readlink" href="../../pipen_filters.filters/#pipen_filters.filters.readlink">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">readlink</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the link of a symlink</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the symlink</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The link of the symlink</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">readlink</span><span class="p">())</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.commonprefix"></span><a class="mkapi-docs-link" title="pipen_filters.filters.commonprefix" href="../../pipen_filters.filters/#pipen_filters.filters.commonprefix">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">commonprefix</span><span class="p">(</span><span class="o">*</span><span class="n">paths</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">basename_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the common prefix of a set of paths</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; commonprefix(&quot;/a/b/abc.txt&quot;, &quot;/a/b/abc.png&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; # &quot;abc.&quot;</span>
+<span class="sd">        &gt;&gt;&gt; commonprefix(&quot;/a/b/abc.txt&quot;, &quot;/a/b/abc.png&quot;, basename_only=False)</span>
+<span class="sd">        &gt;&gt;&gt; # &quot;/a/b/abc.&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *paths: The paths to find commonprefix agaist</span>
+<span class="sd">        basename_only: Only search on the basenames</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The common prefix of the paths</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">basename_only</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span> <span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">commonprefix</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.dirname"></span><a class="mkapi-docs-link" title="pipen_filters.filters.dirname" href="../../pipen_filters.filters/#pipen_filters.filters.dirname">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dirname</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the directory name of a path</span>
+
+<span class="sd">    For example, `/a/b/c.txt =&gt; /a/b/`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The directory name of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.basename"></span><a class="mkapi-docs-link" title="pipen_filters.filters.basename" href="../../pipen_filters.filters/#pipen_filters.filters.basename">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">basename</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the basename of a path</span>
+
+<span class="sd">    For example, `/a/b/c.txt =&gt; c.txt`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The basename of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span class="p">(</span><span class="s2">&quot;suffix&quot;</span><span class="p">)</span><span id="pipen_filters.filters.ext"></span><a class="mkapi-docs-link" title="pipen_filters.filters.ext" href="../../pipen_filters.filters/#pipen_filters.filters.ext">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ext</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the extension of a file</span>
+
+<span class="sd">    For example, `/a/b/c.txt =&gt; .txt`.</span>
+
+<span class="sd">    Aliases: `suffix`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The extension of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_splitexit</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="nd">@add_filter</span><span class="p">(</span><span class="s2">&quot;suffix0&quot;</span><span class="p">)</span><span id="pipen_filters.filters.ext0"></span><a class="mkapi-docs-link" title="pipen_filters.filters.ext0" href="../../pipen_filters.filters/#pipen_filters.filters.ext0">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ext0</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the extension of a file without the leading dot</span>
+
+<span class="sd">    For example, `/a/b/c.txt =&gt; txt`.</span>
+
+<span class="sd">    Aliases: `suffix0`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The extension of the file without the leading dot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ext</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.prefix"></span><a class="mkapi-docs-link" title="pipen_filters.filters.prefix" href="../../pipen_filters.filters/#pipen_filters.filters.prefix">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prefix</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the prefix of a file</span>
+
+<span class="sd">    For example, `/a/b/c.txt =&gt; /a/b/c`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The prefix of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_splitexit</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.prefix0"></span><a class="mkapi-docs-link" title="pipen_filters.filters.prefix0" href="../../pipen_filters.filters/#pipen_filters.filters.prefix0">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prefix0</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the prefix of a file without the extension</span>
+
+<span class="sd">    For example, `/a/b/c.d.txt =&gt; /a/b/c.d`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The prefix of the file without the extension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">FILTERS</span><span class="p">[</span><span class="s2">&quot;filename0&quot;</span><span class="p">](</span><span class="n">pth</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">recursive</span><span class="p">))</span>
+
+
+<span class="nd">@add_filter</span><span class="p">([</span><span class="s2">&quot;fn&quot;</span><span class="p">,</span> <span class="s2">&quot;stem&quot;</span><span class="p">])</span><span id="pipen_filters.filters.filename"></span><a class="mkapi-docs-link" title="pipen_filters.filters.filename" href="../../pipen_filters.filters/#pipen_filters.filters.filename">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">filename</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the filename of a file.</span>
+
+<span class="sd">    For example, `/a/b/c.d.txt =&gt; c.d`.</span>
+
+<span class="sd">    Aliases: `fn`, `stem`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The filename of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">basename</span><span class="p">(</span><span class="n">_splitexit</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="nd">@add_filter</span><span class="p">([</span><span class="s2">&quot;fn0&quot;</span><span class="p">,</span> <span class="s2">&quot;stem0&quot;</span><span class="p">])</span><span id="pipen_filters.filters.filename0"></span><a class="mkapi-docs-link" title="pipen_filters.filters.filename0" href="../../pipen_filters.filters/#pipen_filters.filters.filename0">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">filename0</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the filename of a file without the extension</span>
+
+<span class="sd">    For example, `/a/b/c.d.txt =&gt; c`.</span>
+
+<span class="sd">    Aliases: `fn0`, `stem0`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore: The extensions to ignore</span>
+<span class="sd">            The extensions can be with or without leading dot</span>
+<span class="sd">        recursive: Recursively ignore the extensions from the end</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The filename of the file without the extension</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">filename</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">ignore</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="nd">@add_filter</span><span class="p">(</span><span class="s2">&quot;joinpath&quot;</span><span class="p">)</span><span id="pipen_filters.filters.joinpaths"></span><a class="mkapi-docs-link" title="pipen_filters.filters.joinpaths" href="../../pipen_filters.filters/#pipen_filters.filters.joinpaths">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">joinpaths</span><span class="p">(</span><span class="n">pathsegment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span> <span class="o">*</span><span class="n">pathsegments</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Join paths.</span>
+
+<span class="sd">    For example, `joinpaths(&quot;a&quot;, &quot;b&quot;) =&gt; &quot;a/b&quot;`.</span>
+
+<span class="sd">    Aliases: `joinpath`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pathsegment: The path to join</span>
+<span class="sd">        *pathsegments: The paths to join</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The joined path</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">PanPath</span><span class="p">(</span><span class="n">pathsegment</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="o">*</span><span class="n">pathsegments</span><span class="p">))</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.as_path"></span><a class="mkapi-docs-link" title="pipen_filters.filters.as_path" href="../../pipen_filters.filters/#pipen_filters.filters.as_path">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">as_path</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="n">CloudPath</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a path to a Path object</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to convert</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The Path object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pth</span><span class="p">))</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.isdir"></span><a class="mkapi-docs-link" title="pipen_filters.filters.isdir" href="../../pipen_filters.filters/#pipen_filters.filters.isdir">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">isdir</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a path is a directory</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to check</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the path is a directory, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.isfile"></span><a class="mkapi-docs-link" title="pipen_filters.filters.isfile" href="../../pipen_filters.filters/#pipen_filters.filters.isfile">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">isfile</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a path is a file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to check</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the path is a file, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.islink"></span><a class="mkapi-docs-link" title="pipen_filters.filters.islink" href="../../pipen_filters.filters/#pipen_filters.filters.islink">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">islink</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a path is a symlink</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to check</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the path is a symlink, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">is_symlink</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.exists"></span><a class="mkapi-docs-link" title="pipen_filters.filters.exists" href="../../pipen_filters.filters/#pipen_filters.filters.exists">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">exists</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a path exists</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to check</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the path exists, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.getsize"></span><a class="mkapi-docs-link" title="pipen_filters.filters.getsize" href="../../pipen_filters.filters/#pipen_filters.filters.getsize">DOCS</a>
+<span class="nd">@_neg1_if_error</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">getsize</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the size of a file, return -1 if the file does not exist</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The size of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.getmtime"></span><a class="mkapi-docs-link" title="pipen_filters.filters.getmtime" href="../../pipen_filters.filters/#pipen_filters.filters.getmtime">DOCS</a>
+<span class="nd">@_neg1_if_error</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">getmtime</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the modification time of a file, return -1 if the file does not exist</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The modification time of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.getctime"></span><a class="mkapi-docs-link" title="pipen_filters.filters.getctime" href="../../pipen_filters.filters/#pipen_filters.filters.getctime">DOCS</a>
+<span class="nd">@_neg1_if_error</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">getctime</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the creation time of a file, return -1 if the file does not exist</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The creation time of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_ctime</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.getatime"></span><a class="mkapi-docs-link" title="pipen_filters.filters.getatime" href="../../pipen_filters.filters/#pipen_filters.filters.getatime">DOCS</a>
+<span class="nd">@_neg1_if_error</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">getatime</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the access time of a file, return -1 if the file does not exist</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The access time of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_atime</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.isempty"></span><a class="mkapi-docs-link" title="pipen_filters.filters.isempty" href="../../pipen_filters.filters/#pipen_filters.filters.isempty">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">isempty</span><span class="p">(</span>
+    <span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="n">ignore_ws</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">nonfile_as_empty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a file is empty</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the file</span>
+<span class="sd">        ignore_ws: Ignore whitespaces?</span>
+<span class="sd">        nonfile_as_empty: Treat non-file as empty?</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the file is empty, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pth</span> <span class="o">=</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pth</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">nonfile_as_empty</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_ws</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">getsize</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">pth</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.quote"></span><a class="mkapi-docs-link" title="pipen_filters.filters.quote" href="../../pipen_filters.filters/#pipen_filters.filters.quote">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">quote</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">quote_none</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quote a string</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        var: The string to quote</span>
+<span class="sd">        quote_none: Quote None as &#39;&quot;None&quot;&#39;?</span>
+<span class="sd">            Otherwise, return &#39;None&#39;, without quotes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The quoted string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">var</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">quote_none</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;None&#39;</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.squote"></span><a class="mkapi-docs-link" title="pipen_filters.filters.squote" href="../../pipen_filters.filters/#pipen_filters.filters.squote">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">squote</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">quote_none</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quote a string with single quotes</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        var: The string to quote</span>
+<span class="sd">        quote_none: Quote None as &quot;&#39;None&#39;&quot;?</span>
+<span class="sd">            Otherwise, return &#39;None&#39;, without quotes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The quoted string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">var</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">quote_none</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;None&#39;</span>
+
+    <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+
+
+<span class="nd">@add_filter</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">)</span><span id="pipen_filters.filters.json_dumps"></span><a class="mkapi-docs-link" title="pipen_filters.filters.json_dumps" href="../../pipen_filters.filters/#pipen_filters.filters.json_dumps">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">json_dumps</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dump an object to json.</span>
+
+<span class="sd">    Aliases: `json`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        var: The object to dump</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The json string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.json_load"></span><a class="mkapi-docs-link" title="pipen_filters.filters.json_load" href="../../pipen_filters.filters/#pipen_filters.filters.json_load">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">json_load</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a json file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the json file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The loaded object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">config</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.json_loads"></span><a class="mkapi-docs-link" title="pipen_filters.filters.json_loads" href="../../pipen_filters.filters/#pipen_filters.filters.json_loads">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">json_loads</span><span class="p">(</span><span class="n">jsonstr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a json string to an object</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        jsonstr: The json string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The loaded object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">jsonstr</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span class="p">(</span><span class="s2">&quot;toml_dumps&quot;</span><span class="p">)</span><span id="pipen_filters.filters.toml"></span><a class="mkapi-docs-link" title="pipen_filters.filters.toml" href="../../pipen_filters.filters/#pipen_filters.filters.toml">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">toml</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dump an object to toml.</span>
+
+<span class="sd">    Aliases: `toml_dumps`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        var: The object to dump</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The toml string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Diot</span><span class="p">(</span><span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">to_toml</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.toml_load"></span><a class="mkapi-docs-link" title="pipen_filters.filters.toml_load" href="../../pipen_filters.filters/#pipen_filters.filters.toml_load">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">toml_load</span><span class="p">(</span><span class="n">pth</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a toml file. `null` will be loaded as None</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pth: The path to the toml file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The loaded object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">config</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="s2">&quot;toml&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.toml_loads"></span><a class="mkapi-docs-link" title="pipen_filters.filters.toml_loads" href="../../pipen_filters.filters/#pipen_filters.filters.toml_loads">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">toml_loads</span><span class="p">(</span><span class="n">tomlstr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a toml string to an object, `null` will be loaded as None</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tomlstr: The toml string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The loaded object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">tomlstr</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="s2">&quot;tomls&quot;</span><span class="p">),</span> <span class="p">[</span><span class="n">null_caster</span><span class="p">])</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.config"></span><a class="mkapi-docs-link" title="pipen_filters.filters.config" href="../../pipen_filters.filters/#pipen_filters.filters.config">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">loader</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the configuration (python dictionary) from a file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: The path to the file, dict or string of configurations (json or toml)</span>
+<span class="sd">        loader: The loader to use, defaults to auto-detect</span>
+<span class="sd">            If x is a dict, this argument is ignored</span>
+<span class="sd">            if x is a string and is not a file path, then x will be loaded as</span>
+<span class="sd">            a toml string if loader is not specified</span>
+<span class="sd">            if x is a file path, then x will be loaded according to the file</span>
+<span class="sd">            extension</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The config</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>  <span class="c1"># assume dict</span>
+        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">load_one</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">loader</span> <span class="o">==</span> <span class="s2">&quot;toml&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Diot</span><span class="p">(</span><span class="n">FILTERS</span><span class="p">[</span><span class="s2">&quot;toml_loads&quot;</span><span class="p">](</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">loader</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Diot</span><span class="p">(</span><span class="n">FILTERS</span><span class="p">[</span><span class="s2">&quot;json_loads&quot;</span><span class="p">](</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown loader: </span><span class="si">{</span><span class="n">loader</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="n">load_one</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.glob"></span><a class="mkapi-docs-link" title="pipen_filters.filters.glob" href="../../pipen_filters.filters/#pipen_filters.filters.glob">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">glob</span><span class="p">(</span><span class="n">pathsegment</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span> <span class="o">*</span><span class="n">pathsegments</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Glob a path</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pathsegment: The path to glob</span>
+<span class="sd">        *pathsegments: The paths to glob</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The globbed paths</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span>
+        <span class="nb">sorted</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">pathsegment</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathsegments</span><span class="p">))])</span>
+    <span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.glob0"></span><a class="mkapi-docs-link" title="pipen_filters.filters.glob0" href="../../pipen_filters.filters/#pipen_filters.filters.glob0">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">glob0</span><span class="p">(</span><span class="o">*</span><span class="n">paths</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Glob a path and return the first result</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *paths: The paths to glob</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The first globbed path</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">glob</span><span class="p">(</span><span class="o">*</span><span class="n">paths</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.read"></span><a class="mkapi-docs-link" title="pipen_filters.filters.read" href="../../pipen_filters.filters/#pipen_filters.filters.read">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the contents from a file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file: The path to the file</span>
+<span class="sd">        *args: and</span>
+<span class="sd">        **kwargs: Other arguments passed to `open()`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The contents of the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">PanPath</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">as</span> <span class="n">fvar</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fvar</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.readlines"></span><a class="mkapi-docs-link" title="pipen_filters.filters.readlines" href="../../pipen_filters.filters/#pipen_filters.filters.readlines">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">readlines</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the lines from a file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file: The path to the file</span>
+<span class="sd">        *args: and</span>
+<span class="sd">        **kwargs: Other arguments to `open()`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of lines in the file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.regex_replace"></span><a class="mkapi-docs-link" title="pipen_filters.filters.regex_replace" href="../../pipen_filters.filters/#pipen_filters.filters.regex_replace">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">regex_replace</span><span class="p">(</span>
+    <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">repl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">flags</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace the matched pattern with a string</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        string: The string to search</span>
+<span class="sd">        pattern: The pattern to search</span>
+<span class="sd">        repl: The string to replace</span>
+<span class="sd">        flags: The regex flags</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The replaced string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span>
+
+
+<span class="nd">@add_filter</span><span id="pipen_filters.filters.slugify"></span><a class="mkapi-docs-link" title="pipen_filters.filters.slugify" href="../../pipen_filters.filters/#pipen_filters.filters.slugify">DOCS</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">slugify</span><span class="p">(</span><span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Slugify a string</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        string: The string to slugify</span>
+<span class="sd">        *args: and</span>
+<span class="sd">        **kwargs: Other arguments to `slugify()`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The slugified string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">slugify</span><span class="w"> </span><span class="kn">import</span> <span class="n">slugify</span> <span class="k">as</span> <span class="n">_slugify</span>
+
+    <span class="k">return</span> <span class="n">_slugify</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    <a href="https://github.com/pwwang/pipen-filters" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+    <script src="../../../js/version-select.js"></script>
+      <script src="../../../js/mkapi.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

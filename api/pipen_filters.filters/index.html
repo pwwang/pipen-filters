@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>pipen_filters.filters - pipen-filters</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="//use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet" />
+        <link href="//use.fontawesome.com/releases/v5.8.1/css/v4-shims.css" rel="stylesheet" />
+        <link href="../../css/mkapi-common.css" rel="stylesheet" />
+        <link href="../../style.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pipen_filters.filters";
+        var mkdocs_page_input_path = "api/pipen_filters.filters.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.configure({ ignoreUnescapedHTML: true }); hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../pipen-filters.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="nav-scrollable-wrapper">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">API</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">pipen_filters</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../pipen_filters/">pipen_filters</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">pipen_filters.filters</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersadd_filter">add_filter</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersrealpath">realpath</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersreadlink">readlink</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfilterscommonprefix">commonprefix</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersdirname">dirname</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersbasename">basename</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersext">ext</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersext0">ext0</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersprefix">prefix</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersprefix0">prefix0</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersfilename">filename</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersfilename0">filename0</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersjoinpaths">joinpaths</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersas_path">as_path</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersisdir">isdir</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersisfile">isfile</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersislink">islink</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersexists">exists</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersgetsize">getsize</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersgetmtime">getmtime</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersgetctime">getctime</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersgetatime">getatime</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersisempty">isempty</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersquote">quote</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfilterssquote">squote</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersjson_dumps">json_dumps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersjson_load">json_load</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersjson_loads">json_loads</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfilterstoml">toml</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfilterstoml_load">toml_load</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfilterstoml_loads">toml_loads</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersconfig">config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersglob">glob</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersglob0">glob0</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersread">read</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersreadlines">readlines</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersregex_replace">regex_replace</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipen_filtersfiltersslugify">slugify</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">pipen-filters</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">API</li>
+          <li class="breadcrumb-item">pipen_filters</li>
+      <li class="breadcrumb-item active">pipen_filters.filters</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/pwwang/pipen-filters/edit/master/docs/api/pipen_filters.filters.md">Edit on pwwang/pipen-filters</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="mkapi-node" id="pipen_filters.filters">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object module plain top">
+    <div class="mkapi-object-kind module top">module</div>
+    <h2 id="pipen_filtersfilters" class="mkapi-object-body module top"><span class="mkapi-object-prefix"><a href="../pipen_filters/#pipen_filters">pipen_filters</a>.</span><span class="mkapi-object-name">filters</span></h2>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters" title="Source for pipen_filters.filters">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Provides the filters</p></div>
+    </div>
+  <div class="mkapi-section functions">
+      <div class="mkapi-section-name functions">
+          <span class="mkapi-section-name-body functions">Functions</span> 
+        </div>
+      <div class="mkapi-section-body functions"><ul class="mkapi-items">
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.add_filter">add_filter</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">aliases</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Callable)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Add a filter to the FILTERS<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.add_filter" title="Source for pipen_filters.filters.add_filter">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.as_path">as_path</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(pathlib.path | panpath.cloud.cloudpath)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Convert a path to a Path object<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.as_path" title="Source for pipen_filters.filters.as_path">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.basename">basename</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the basename of a path<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.basename" title="Source for pipen_filters.filters.basename">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.commonprefix">commonprefix</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">*paths</code>, <code class="mkapi-object-signature">basename_only</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the common prefix of a set of paths<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.commonprefix" title="Source for pipen_filters.filters.commonprefix">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.config">config</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">x</code>, <code class="mkapi-object-signature">loader</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Mapping)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the configuration (python dictionary) from a file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.config" title="Source for pipen_filters.filters.config">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.dirname">dirname</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the directory name of a path<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.dirname" title="Source for pipen_filters.filters.dirname">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.exists">exists</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(bool)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Check if a path exists<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.exists" title="Source for pipen_filters.filters.exists">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.ext">ext</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore</code>, <code class="mkapi-object-signature">recursive</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the extension of a file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.ext" title="Source for pipen_filters.filters.ext">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.ext0">ext0</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore</code>, <code class="mkapi-object-signature">recursive</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the extension of a file without the leading dot<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.ext0" title="Source for pipen_filters.filters.ext0">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.filename">filename</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore</code>, <code class="mkapi-object-signature">recursive</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the filename of a file.<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.filename" title="Source for pipen_filters.filters.filename">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.filename0">filename0</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore</code>, <code class="mkapi-object-signature">recursive</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the filename of a file without the extension<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.filename0" title="Source for pipen_filters.filters.filename0">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.getatime">getatime</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(int)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the access time of a file, return -1 if the file does not exist<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getatime" title="Source for pipen_filters.filters.getatime">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.getctime">getctime</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(int)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the creation time of a file, return -1 if the file does not exist<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getctime" title="Source for pipen_filters.filters.getctime">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.getmtime">getmtime</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(int)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the modification time of a file, return -1 if the file does not exist<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getmtime" title="Source for pipen_filters.filters.getmtime">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.getsize">getsize</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(int)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the size of a file, return -1 if the file does not exist<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getsize" title="Source for pipen_filters.filters.getsize">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.glob">glob</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pathsegment</code>, <code class="mkapi-object-signature">*pathsegments</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(List)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Glob a path<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.glob" title="Source for pipen_filters.filters.glob">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.glob0">glob0</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">*paths</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Glob a path and return the first result<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.glob0" title="Source for pipen_filters.filters.glob0">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.isdir">isdir</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(bool)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Check if a path is a directory<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.isdir" title="Source for pipen_filters.filters.isdir">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.isempty">isempty</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore_ws</code>, <code class="mkapi-object-signature">nonfile_as_empty</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(bool)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Check if a file is empty<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.isempty" title="Source for pipen_filters.filters.isempty">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.isfile">isfile</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(bool)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Check if a path is a file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.isfile" title="Source for pipen_filters.filters.isfile">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.islink">islink</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(bool)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Check if a path is a symlink<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.islink" title="Source for pipen_filters.filters.islink">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.joinpaths">joinpaths</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pathsegment</code>, <code class="mkapi-object-signature">*pathsegments</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Join paths.<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.joinpaths" title="Source for pipen_filters.filters.joinpaths">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.json_dumps">json_dumps</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Dump an object to json.<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.json_dumps" title="Source for pipen_filters.filters.json_dumps">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.json_load">json_load</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Load a json file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.json_load" title="Source for pipen_filters.filters.json_load">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.json_loads">json_loads</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">jsonstr</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Load a json string to an object<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.json_loads" title="Source for pipen_filters.filters.json_loads">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.prefix">prefix</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore</code>, <code class="mkapi-object-signature">recursive</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the prefix of a file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.prefix" title="Source for pipen_filters.filters.prefix">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.prefix0">prefix0</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore</code>, <code class="mkapi-object-signature">recursive</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the prefix of a file without the extension<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.prefix0" title="Source for pipen_filters.filters.prefix0">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.quote">quote</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code>, <code class="mkapi-object-signature">quote_none</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Quote a string<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.quote" title="Source for pipen_filters.filters.quote">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.read">read</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">file</code>, <code class="mkapi-object-signature">*args</code>, <code class="mkapi-object-signature">**kwargs</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Union)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Read the contents from a file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.read" title="Source for pipen_filters.filters.read">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.readlines">readlines</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">file</code>, <code class="mkapi-object-signature">*args</code>, <code class="mkapi-object-signature">**kwargs</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Union)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Read the lines from a file<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.readlines" title="Source for pipen_filters.filters.readlines">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.readlink">readlink</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the link of a symlink<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.readlink" title="Source for pipen_filters.filters.readlink">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.realpath">realpath</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Get the real path of a path<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.realpath" title="Source for pipen_filters.filters.realpath">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.regex_replace">regex_replace</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">string</code>, <code class="mkapi-object-signature">pattern</code>, <code class="mkapi-object-signature">repl</code>, <code class="mkapi-object-signature">count</code>, <code class="mkapi-object-signature">flags</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Replace the matched pattern with a string<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.regex_replace" title="Source for pipen_filters.filters.regex_replace">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.slugify">slugify</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">string</code>, <code class="mkapi-object-signature">*args</code>, <code class="mkapi-object-signature">**kwargs</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Slugify a string<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.slugify" title="Source for pipen_filters.filters.slugify">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.squote">squote</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code>, <code class="mkapi-object-signature">quote_none</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Quote a string with single quotes<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.squote" title="Source for pipen_filters.filters.squote">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.toml">toml</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Dump an object to toml.<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.toml" title="Source for pipen_filters.filters.toml">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.toml_load">toml_load</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Load a toml file. <code>null</code> will be loaded as None<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.toml_load" title="Source for pipen_filters.filters.toml_load">&lt;/&gt;</a></span></li>
+
+<li class="function"><code class="mkapi-item-name"><a href="#pipen_filters.filters.toml_loads">toml_loads</a></code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">tomlstr</code><code class="mkapi-object-parenthesis">)</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Load a toml string to an object, <code>null</code> will be loaded as None<a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.toml_loads" title="Source for pipen_filters.filters.toml_loads">&lt;/&gt;</a></span></li>
+
+
+</ul></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.add_filter">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersadd_filter" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">add_filter</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">aliases=None</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.add_filter" title="Source for pipen_filters.filters.add_filter">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Add a filter to the FILTERS</p></div>
+    </div>
+  <div class="mkapi-section examples">
+      <div class="mkapi-section-name examples">
+          <span class="mkapi-section-name-body examples">Examples</span> 
+        </div>
+      <div class="mkapi-section-body examples"><p>Filters added: <code>myfilter</code><div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nd">@add_filter</span>
+<span class="o">...</span> <span class="k">def</span><span class="w"> </span><span class="nf">myfilter</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">var</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nd">@add_filter</span><span class="p">()</span>
+<span class="o">...</span> <span class="k">def</span><span class="w"> </span><span class="nf">myfilter</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">var</span>
+</code></pre></div>
+<p>Filters added: <code>myfilter</code>, <code>myfilter2</code>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nd">@add_filter</span><span class="p">(</span><span class="s2">&quot;myfilter2&quot;</span><span class="p">)</span>
+<span class="o">...</span> <span class="k">def</span><span class="w"> </span><span class="nf">myfilter</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">var</span>
+</code></pre></div></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">aliases</code>
+<span class="mkapi-item-type">(Union, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The aliases of the filter, the filter itself, or None</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Callable)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The filter itself if used directly <code>@add_filter</code>; orThe decorator to add the filter if used with arguments <code>@add_filter(...)</code></p>
+</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.realpath">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersrealpath" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">realpath</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.realpath" title="Source for pipen_filters.filters.realpath">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the real path of a path</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The real path of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.readlink">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersreadlink" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">readlink</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.readlink" title="Source for pipen_filters.filters.readlink">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the link of a symlink</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the symlink</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The link of the symlink</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.commonprefix">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfilterscommonprefix" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">commonprefix</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">*paths</code>, <code class="mkapi-object-signature">basename_only=True</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.commonprefix" title="Source for pipen_filters.filters.commonprefix">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the common prefix of a set of paths</p></div>
+    </div>
+  <div class="mkapi-section examples">
+      <div class="mkapi-section-name examples">
+          <span class="mkapi-section-name-body examples">Examples</span> 
+        </div>
+      <div class="mkapi-section-body examples"><div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">commonprefix</span><span class="p">(</span><span class="s2">&quot;/a/b/abc.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;/a/b/abc.png&quot;</span><span class="p">)</span><span class="o">&gt;&gt;&gt;</span> <span class="c1"># &quot;abc.&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">commonprefix</span><span class="p">(</span><span class="s2">&quot;/a/b/abc.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;/a/b/abc.png&quot;</span><span class="p">,</span> <span class="n">basename_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># &quot;/a/b/abc.&quot;</span>
+</code></pre></div>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">*paths</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The paths to find commonprefix agaist</span></li>
+
+<li><code class="mkapi-item-name">basename_only</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Only search on the basenames</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The common prefix of the paths</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.dirname">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersdirname" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">dirname</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.dirname" title="Source for pipen_filters.filters.dirname">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the directory name of a path</p><p>For example, <code>/a/b/c.txt =&gt; /a/b/</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The directory name of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.basename">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersbasename" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">basename</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.basename" title="Source for pipen_filters.filters.basename">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the basename of a path</p><p>For example, <code>/a/b/c.txt =&gt; c.txt</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The basename of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.ext">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersext" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">ext</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore=[]</code>, <code class="mkapi-object-signature">recursive=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.ext" title="Source for pipen_filters.filters.ext">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the extension of a file</p><p>For example, <code>/a/b/c.txt =&gt; .txt</code>.</p>
+<p>Aliases: <code>suffix</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore</code>
+<span class="mkapi-item-type">(list[str] | str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The extensions to ignoreThe extensions can be with or without leading dot
+</span></li>
+
+<li><code class="mkapi-item-name">recursive</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Recursively ignore the extensions from the end</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The extension of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.ext0">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersext0" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">ext0</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore=[]</code>, <code class="mkapi-object-signature">recursive=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.ext0" title="Source for pipen_filters.filters.ext0">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the extension of a file without the leading dot</p><p>For example, <code>/a/b/c.txt =&gt; txt</code>.</p>
+<p>Aliases: <code>suffix0</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore</code>
+<span class="mkapi-item-type">(list[str] | str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The extensions to ignoreThe extensions can be with or without leading dot
+</span></li>
+
+<li><code class="mkapi-item-name">recursive</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Recursively ignore the extensions from the end</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The extension of the file without the leading dot</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.prefix">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersprefix" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">prefix</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore=[]</code>, <code class="mkapi-object-signature">recursive=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.prefix" title="Source for pipen_filters.filters.prefix">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the prefix of a file</p><p>For example, <code>/a/b/c.txt =&gt; /a/b/c</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore</code>
+<span class="mkapi-item-type">(list[str] | str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The extensions to ignoreThe extensions can be with or without leading dot
+</span></li>
+
+<li><code class="mkapi-item-name">recursive</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Recursively ignore the extensions from the end</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The prefix of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.prefix0">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersprefix0" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">prefix0</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore=[]</code>, <code class="mkapi-object-signature">recursive=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.prefix0" title="Source for pipen_filters.filters.prefix0">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the prefix of a file without the extension</p><p>For example, <code>/a/b/c.d.txt =&gt; /a/b/c.d</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore</code>
+<span class="mkapi-item-type">(list[str] | str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The extensions to ignoreThe extensions can be with or without leading dot
+</span></li>
+
+<li><code class="mkapi-item-name">recursive</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Recursively ignore the extensions from the end</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The prefix of the file without the extension</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.filename">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersfilename" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">filename</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore=[]</code>, <code class="mkapi-object-signature">recursive=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.filename" title="Source for pipen_filters.filters.filename">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the filename of a file.</p><p>For example, <code>/a/b/c.d.txt =&gt; c.d</code>.</p>
+<p>Aliases: <code>fn</code>, <code>stem</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore</code>
+<span class="mkapi-item-type">(list[str] | str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The extensions to ignoreThe extensions can be with or without leading dot
+</span></li>
+
+<li><code class="mkapi-item-name">recursive</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Recursively ignore the extensions from the end</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The filename of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.filename0">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersfilename0" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">filename0</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore=[]</code>, <code class="mkapi-object-signature">recursive=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.filename0" title="Source for pipen_filters.filters.filename0">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the filename of a file without the extension</p><p>For example, <code>/a/b/c.d.txt =&gt; c</code>.</p>
+<p>Aliases: <code>fn0</code>, <code>stem0</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore</code>
+<span class="mkapi-item-type">(list[str] | str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The extensions to ignoreThe extensions can be with or without leading dot
+</span></li>
+
+<li><code class="mkapi-item-name">recursive</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Recursively ignore the extensions from the end</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The filename of the file without the extension</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.joinpaths">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersjoinpaths" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">joinpaths</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pathsegment</code>, <code class="mkapi-object-signature">*pathsegments</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.joinpaths" title="Source for pipen_filters.filters.joinpaths">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Join paths.</p><p>For example, <code>joinpaths("a", "b") =&gt; "a/b"</code>.</p>
+<p>Aliases: <code>joinpath</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pathsegment</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to join</span></li>
+
+<li><code class="mkapi-item-name">*pathsegments</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The paths to join</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The joined path</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.as_path">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersas_path" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">as_path</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.as_path" title="Source for pipen_filters.filters.as_path">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Convert a path to a Path object</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to convert</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(pathlib.path | panpath.cloud.cloudpath)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The Path object</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.isdir">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersisdir" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">isdir</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.isdir" title="Source for pipen_filters.filters.isdir">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Check if a path is a directory</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to check</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(bool)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>True if the path is a directory, False otherwise</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.isfile">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersisfile" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">isfile</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.isfile" title="Source for pipen_filters.filters.isfile">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Check if a path is a file</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to check</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(bool)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>True if the path is a file, False otherwise</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.islink">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersislink" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">islink</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.islink" title="Source for pipen_filters.filters.islink">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Check if a path is a symlink</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to check</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(bool)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>True if the path is a symlink, False otherwise</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.exists">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersexists" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">exists</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.exists" title="Source for pipen_filters.filters.exists">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Check if a path exists</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to check</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(bool)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>True if the path exists, False otherwise</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.getsize">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersgetsize" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">getsize</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getsize" title="Source for pipen_filters.filters.getsize">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the size of a file, return -1 if the file does not exist</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(int)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The size of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.getmtime">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersgetmtime" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">getmtime</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getmtime" title="Source for pipen_filters.filters.getmtime">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the modification time of a file, return -1 if the file does not exist</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(int)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The modification time of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.getctime">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersgetctime" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">getctime</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getctime" title="Source for pipen_filters.filters.getctime">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the creation time of a file, return -1 if the file does not exist</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(int)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The creation time of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.getatime">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersgetatime" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">getatime</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.getatime" title="Source for pipen_filters.filters.getatime">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the access time of a file, return -1 if the file does not exist</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(int)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The access time of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.isempty">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersisempty" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">isempty</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code>, <code class="mkapi-object-signature">ignore_ws=True</code>, <code class="mkapi-object-signature">nonfile_as_empty=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.isempty" title="Source for pipen_filters.filters.isempty">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Check if a file is empty</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">ignore_ws</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Ignore whitespaces?</span></li>
+
+<li><code class="mkapi-item-name">nonfile_as_empty</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Treat non-file as empty?</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(bool)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>True if the file is empty, False otherwise</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.quote">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersquote" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">quote</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code>, <code class="mkapi-object-signature">quote_none=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.quote" title="Source for pipen_filters.filters.quote">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Quote a string</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">var</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The string to quote</span></li>
+
+<li><code class="mkapi-item-name">quote_none</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Quote None as '"None"'?Otherwise, return 'None', without quotes
+</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The quoted string</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.squote">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfilterssquote" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">squote</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code>, <code class="mkapi-object-signature">quote_none=False</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.squote" title="Source for pipen_filters.filters.squote">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Quote a string with single quotes</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">var</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The string to quote</span></li>
+
+<li><code class="mkapi-item-name">quote_none</code>
+<span class="mkapi-item-type">(bool, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Quote None as "'None'"?Otherwise, return 'None', without quotes
+</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The quoted string</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.json_dumps">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersjson_dumps" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">json_dumps</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.json_dumps" title="Source for pipen_filters.filters.json_dumps">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Dump an object to json.</p><p>Aliases: <code>json</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">var</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The object to dump</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The json string</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.json_load">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersjson_load" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">json_load</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.json_load" title="Source for pipen_filters.filters.json_load">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Load a json file</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the json file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Any)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The loaded object</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.json_loads">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersjson_loads" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">json_loads</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">jsonstr</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.json_loads" title="Source for pipen_filters.filters.json_loads">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Load a json string to an object</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">jsonstr</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The json string</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Any)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The loaded object</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.toml">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfilterstoml" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">toml</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">var</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.toml" title="Source for pipen_filters.filters.toml">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Dump an object to toml.</p><p>Aliases: <code>toml_dumps</code></p>
+</div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">var</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The object to dump</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The toml string</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.toml_load">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfilterstoml_load" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">toml_load</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pth</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.toml_load" title="Source for pipen_filters.filters.toml_load">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Load a toml file. <code>null</code> will be loaded as None</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pth</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the toml file</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Any)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The loaded object</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.toml_loads">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfilterstoml_loads" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">toml_loads</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">tomlstr</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.toml_loads" title="Source for pipen_filters.filters.toml_loads">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Load a toml string to an object, <code>null</code> will be loaded as None</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">tomlstr</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The toml string</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Any)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The loaded object</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.config">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersconfig" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">config</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">x</code>, <code class="mkapi-object-signature">loader=None</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.config" title="Source for pipen_filters.filters.config">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Get the configuration (python dictionary) from a file</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">x</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file, dict or string of configurations (json or toml)</span></li>
+
+<li><code class="mkapi-item-name">loader</code>
+<span class="mkapi-item-type">(str, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The loader to use, defaults to auto-detectIf x is a dict, this argument is ignored
+if x is a string and is not a file path, then x will be loaded as
+a toml string if loader is not specified
+if x is a file path, then x will be loaded according to the file
+extension
+</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Mapping)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The config</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.glob">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersglob" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">glob</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">pathsegment</code>, <code class="mkapi-object-signature">*pathsegments</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.glob" title="Source for pipen_filters.filters.glob">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Glob a path</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">pathsegment</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to glob</span></li>
+
+<li><code class="mkapi-item-name">*pathsegments</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The paths to glob</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(List)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The globbed paths</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.glob0">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersglob0" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">glob0</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">*paths</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.glob0" title="Source for pipen_filters.filters.glob0">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Glob a path and return the first result</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">*paths</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The paths to glob</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The first globbed path</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.read">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersread" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">read</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">file</code>, <code class="mkapi-object-signature">*args</code>, <code class="mkapi-object-signature">**kwargs</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.read" title="Source for pipen_filters.filters.read">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Read the contents from a file</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">file</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">*args</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">and</span></li>
+
+<li><code class="mkapi-item-name">**kwargs</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Other arguments passed to <code>open()</code></span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Union)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The contents of the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.readlines">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersreadlines" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">readlines</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">file</code>, <code class="mkapi-object-signature">*args</code>, <code class="mkapi-object-signature">**kwargs</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.readlines" title="Source for pipen_filters.filters.readlines">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Read the lines from a file</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">file</code>
+<span class="mkapi-item-type">(str | os.pathlike)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The path to the file</span></li>
+
+<li><code class="mkapi-item-name">*args</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">and</span></li>
+
+<li><code class="mkapi-item-name">**kwargs</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Other arguments to <code>open()</code></span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(Union)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>A list of lines in the file</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.regex_replace">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersregex_replace" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">regex_replace</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">string</code>, <code class="mkapi-object-signature">pattern</code>, <code class="mkapi-object-signature">repl</code>, <code class="mkapi-object-signature">count=0</code>, <code class="mkapi-object-signature">flags=0</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.regex_replace" title="Source for pipen_filters.filters.regex_replace">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Replace the matched pattern with a string</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">string</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The string to search</span></li>
+
+<li><code class="mkapi-item-name">pattern</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The pattern to search</span></li>
+
+<li><code class="mkapi-item-name">repl</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The string to replace</span></li>
+
+
+<li><code class="mkapi-item-name">flags</code>
+<span class="mkapi-item-type">(int, optional)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The regex flags</span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The replaced string</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mkapi-node" id="pipen_filters.filters.slugify">
+<div class='mkapi-object-container'>
+  <div class="mkapi-object function code top">
+    <div class="mkapi-object-kind function top">function</div>
+    <h3 id="pipen_filtersfiltersslugify" class="mkapi-object-body function top"><code class="mkapi-object-prefix"><a href="#pipen_filters.filters">pipen_filters.filters</a>.</code><code class="mkapi-object-name">slugify</code><code class="mkapi-object-parenthesis">(</code><code class="mkapi-object-signature">string</code>, <code class="mkapi-object-signature">*args</code>, <code class="mkapi-object-signature">**kwargs</code><code class="mkapi-object-parenthesis">)</code></h3>
+  </div>
+  <div class="mkapi-src-link">
+    <a class="mkapi-src-link" href="../source/pipen_filters.filters/#pipen_filters.filters.slugify" title="Source for pipen_filters.filters.slugify">&lt;/&gt;</a>
+  </div>
+</div>
+<div class="mkapi-docstring">
+<div class="mkapi-section">
+      <div class="mkapi-section-body"><p>Slugify a string</p></div>
+    </div>
+  <div class="mkapi-section parameters">
+      <div class="mkapi-section-name parameters">
+          <span class="mkapi-section-name-body parameters">Parameters</span> 
+        </div>
+      <div class="mkapi-section-body parameters"><ul class="mkapi-items">
+<li><code class="mkapi-item-name">string</code>
+<span class="mkapi-item-type">(str)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">The string to slugify</span></li>
+
+<li><code class="mkapi-item-name">*args</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">and</span></li>
+
+<li><code class="mkapi-item-name">**kwargs</code>
+<span class="mkapi-item-type">(Any)</span>
+<span class="mkapi-item-dash">&mdash;</span> <span class="mkapi-item-description">Other arguments to <code>slugify()</code></span></li>
+
+
+</ul></div>
+    </div>
+  <div class="mkapi-section returns">
+      <div class="mkapi-section-name returns">
+          <span class="mkapi-section-name-body returns">Returns</span> <span class="mkapi-item-type">(str)</span>
+        </div>
+      <div class="mkapi-section-body returns"><p>The slugified string</p></div>
+    </div>
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pipen_filters/" class="btn btn-neutral float-left" title="pipen_filters"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  <div class="footer-notes">
+    <a href="https://github.com/pwwang/pipen-filters" title="Open repository in GitHub">Github Repo</a>
+    <div class="footer-sep"></div>Built with <a href="https://www.mkdocs.org/">MkDocs</a> using theme <a href="https://github.com/pwwang/mkdocs-rtd">mkdocs-rtd</a>.
+  </div>
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../pipen_filters/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/version-select.js"></script>
+      <script src="../../js/mkapi.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
